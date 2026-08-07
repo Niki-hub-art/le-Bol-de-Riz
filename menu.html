@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carte — lbdz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================
+     TOKENS
+     ============================================ */
+  :root{
+    --bg:            #FAF6EF;   /* gebroken wit / crème */
+    --surface:       #FFFFFF;
+    --text:          #2B2823;   /* houtskool */
+    --muted:         #8B8377;
+    --accent:        #8dd17f;   /* bamboe groen */
+    --accent-ink:    #2f4a29;   /* voor tekst op een lichte accentkleur */
+    --terracotta:    #C97B5F;   /* zachte terracotta accent */
+    --line:          #E5DFD4;
+    --radius:        14px;
+    --max-width:     680px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 56px;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  button{ font-family: inherit; }
+  img, svg{ display:block; max-width:100%; }
+
+  /* ============================================
+     TERUG-KNOP + TAALWISSEL
+     ============================================ */
+  .back-bar{
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 16px 20px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .back-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    transition: color .2s ease;
+  }
+  .back-link:hover{ color: var(--text); }
+  .back-link svg{ width: 14px; height: 14px; }
+
+  .lang-switch{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .lang-switch button{
+    background: none;
+    border: none;
+    padding: 2px 0;
+    cursor: pointer;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .lang-switch button.active{
+    color: var(--text);
+    border-bottom-color: var(--accent-ink);
+  }
+  .lang-switch button:hover{ color: var(--text); }
+  .lang-switch .sep{ opacity: 0.5; }
+
+  /* ============================================
+     HEADER
+     ============================================ */
+  .menu-header{
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 6px 20px 18px;
+    text-align: center;
+  }
+  .menu-header .eyebrow{
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+  .menu-header h1{
+    font-size: 30px;
+    margin-top: 8px;
+  }
+  .menu-header p{
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 13.5px;
+  }
+
+  /* ============================================
+     STICKY NAVIGATIE
+     ============================================ */
+  .cat-nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 246, 239, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    padding: 9px 0;
+  }
+  .cat-nav-inner{
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 20px;
+    scrollbar-width: none;
+  }
+  .cat-nav-inner::-webkit-scrollbar{ display:none; }
+
+  .cat-nav a{
+    flex: 0 0 auto;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    white-space: nowrap;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .cat-nav a.active{
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  /* ============================================
+     CATEGORIE-SECTIE
+     ============================================ */
+  .category{
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 32px 20px 0;
+    scroll-margin-top: 60px;
+  }
+
+  .category-head{
+    margin-bottom: 14px;
+  }
+  .kicker{
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .category-head h2{
+    display: inline-block;
+    font-size: 21px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--accent);
+  }
+
+  /* ============================================
+     GERECHTENLIJST — compact, geen foto's
+     ============================================ */
+  .dish-list{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dish-row{
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .dish-list .dish-row:last-child{
+    border-bottom: none;
+  }
+
+  .dish-name-line{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dish-title{
+    font-size: 15.5px;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+  .leader{
+    flex: 1 1 auto;
+    min-width: 10px;
+    border-bottom: 1px dotted var(--line);
+    margin: 0 2px 4px;
+  }
+  .dish-price{
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    color: var(--terracotta);
+    white-space: nowrap;
+  }
+  .dish-desc{
+    margin: 3px 0 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .spicy-tag{
+    flex: 0 0 auto;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: var(--terracotta);
+    white-space: nowrap;
+  }
+
+  /* ============================================
+     UITGELICHTE MINI-STICKER
+     Klein, compact thumbnail (~44px) dat rechts van
+     de gerechtsnaam staat, direct na de prijs — op
+     dezelfde regel. Doordat dit een extra flex-item
+     in .dish-name-line is, krimpt de stippellijn
+     (.leader) vanzelf mee, zodat alles netjes op één
+     lijn blijft zonder iets te overlappen.
+     Gebruik een PNG met TRANSPARANTE achtergrond voor
+     .sticker-img. Klik op de mini-sticker → lightbox
+     met de volledige foto (mét achtergrond) + naam +
+     meertalige omschrijving.
+     ============================================ */
+  .sticker-trigger{
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .2s ease;
+  }
+  .sticker-trigger:hover,
+  .sticker-trigger:focus-visible{
+    transform: scale(1.08);
+  }
+  .sticker-trigger:focus-visible{
+    outline: 2px solid var(--accent-ink);
+    outline-offset: 3px;
+  }
+  .sticker-img{
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 5px rgba(43,40,35,.28));
+  }
+
+  /* ============================================
+     MENU-ITEM-CONTENT — wrapper voor de 4 uitgelichte
+     gerechten (Rouleau, Phở, Canard Laqué, Riz/Nouilles
+     sautés aux Légumes). Op desktop gedraagt dit zich,
+     dankzij de flex "order" waarden, precies als de
+     bestaande compacte regel (naam — stippellijn — prijs
+     — kleine sticker), met de beschrijving eronder.
+
+     .price-photo bundelt prijs + foto in één blokje.
+     Op desktop is dat blokje onzichtbaar voor de layout
+     (display: contents), zodat prijs en foto gewoon als
+     losse flex-items meedoen op de bestaande regel. Op
+     mobiel wordt het een echt, vast blok dat rechts
+     "float", vóór de titel in de HTML staat — daardoor
+     wrapt de titel altijd netjes om dit blok heen, hoe
+     lang de naam ook is, zonder dat de foto ooit kan
+     verspringen.
+     ============================================ */
+  .menu-item-content{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 6px;
+  }
+  .menu-item-content .dish-title{ order: 1; }
+  .menu-item-content .leader{ order: 2; }
+  .menu-item-content .dish-price{ order: 3; }
+  .menu-item-content .sticker-trigger{ order: 4; }
+  .menu-item-content .mobile-break{ display: none; }
+  .menu-item-content .price-photo{ display: contents; }
+  .menu-item-content .dish-desc{
+    order: 5;
+    flex-basis: 100%;
+    margin-top: 3px;
+  }
+
+  /* ============================================
+     MOBIEL (< 768px) — .price-photo (prijs + foto)
+     wordt een vast, rechts-gefloat blokje bovenaan.
+     Omdat het als EERSTE element in de HTML staat,
+     wrapt de titel — hoe lang ook, desnoods over
+     meerdere regels — altijd netjes om dit blokje
+     heen. De foto kan dus nooit meer "verspringen".
+     ============================================ */
+  @media (max-width: 768px){
+    .menu-item-content{
+      display: block;
+    }
+    .menu-item-content .price-photo{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      float: right;
+      margin: 0 0 8px 12px;
+    }
+    .menu-item-content .price-photo .dish-price{
+      order: initial;
+      font-size: 13.5px;
+      white-space: nowrap;
+    }
+    .menu-item-content .price-photo .sticker-trigger{
+      order: initial;
+      flex: 0 0 auto;
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+    }
+    .menu-item-content .sticker-img{
+      width: 64px;
+      height: 64px;
+      filter: drop-shadow(0 4px 8px rgba(43,40,35,.3));
+    }
+    .menu-item-content .dish-title{
+      display: block;
+      white-space: normal;
+      font-size: 15px;
+      margin: 0;
+    }
+    .menu-item-content .leader{
+      display: none;
+    }
+    .menu-item-content .mobile-break{
+      display: none;
+    }
+    .menu-item-content .dish-desc{
+      display: block;
+      clear: none;
+      margin-top: 6px;
+    }
+  }
+
+  /* ============================================
+     LIGHTBOX
+     ============================================ */
+  .lightbox{
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .25s ease, visibility 0s linear .25s;
+  }
+  .lightbox.active{
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .25s ease, visibility 0s;
+  }
+  .lightbox-backdrop{
+    position: absolute;
+    inset: 0;
+    background: rgba(30, 26, 20, 0.72);
+    backdrop-filter: blur(4px);
+  }
+  .lightbox-content{
+    position: relative;
+    background: var(--surface);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 440px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 30px 70px rgba(0,0,0,.3);
+    transform: scale(.94) translateY(10px);
+    transition: transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .lightbox.active .lightbox-content{
+    transform: scale(1) translateY(0);
+  }
+  .lightbox-img{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .lightbox-close{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,.92);
+    color: var(--text);
+    font-size: 19px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .lightbox-close:hover{
+    background: var(--accent);
+    transform: scale(1.06);
+  }
+  .lightbox-text{
+    padding: 16px 20px 20px;
+  }
+  .lightbox-text h3{
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .lightbox-lang{
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text);
+    margin: 0 0 7px;
+  }
+  .lightbox-lang:last-child{ margin-bottom: 0; }
+  .lang-tag{
+    flex: 0 0 auto;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--accent-ink);
+    background: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 2px;
+  }
+
+  /* ============================================
+     DRANKEN — prijslijst
+     ============================================ */
+  .drink-group{
+    margin-bottom: 22px;
+  }
+  .drink-group h3{
+    font-family: 'Work Sans', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    margin-bottom: 8px;
+  }
+  .drink-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .drink-list li{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13.5px;
+  }
+  .drink-name small{
+    display: block;
+    color: var(--muted);
+    font-size: 11.5px;
+    margin-top: 1px;
+  }
+  .drink-price{
+    font-family: 'Fraunces', serif;
+    color: var(--terracotta);
+    white-space: nowrap;
+  }
+
+  /* ============================================
+     LUNCHFORMULE-KAART
+     ============================================ */
+  .formule-box{
+    max-width: var(--max-width);
+    margin: 30px auto 0;
+    padding: 0 20px;
+  }
+  .formule-card{
+    background: var(--accent);
+    border-radius: var(--radius);
+    padding: 20px 20px 18px;
+    color: var(--accent-ink);
+  }
+  .formule-card h3{
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .formule-card ol{
+    margin: 0 0 12px;
+    padding-left: 18px;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .formule-card .prices{
+    display: flex;
+    gap: 18px;
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    border-top: 1px solid rgba(47,74,41,0.25);
+    padding-top: 10px;
+  }
+
+  /* ============================================
+     FOOTER
+     ============================================ */
+  .menu-footer{
+    max-width: var(--max-width);
+    margin: 38px auto 0;
+    padding: 18px 20px 0;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .disclaimer{
+    max-width: var(--max-width);
+    margin: 16px auto 0;
+    padding: 0 20px;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    font-style: italic;
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="back-bar">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span data-i18n="back">Retour à l'accueil</span>
+    </a>
+
+    <nav class="lang-switch" aria-label="Choix de la langue">
+      <button type="button" data-lang="fr" class="active">FR</button>
+      <span class="sep">·</span>
+      <button type="button" data-lang="en">EN</button>
+    </nav>
+  </div>
+
+  <header class="menu-header">
+    <div class="eyebrow">Le Bol de Riz</div>
+    <h1 data-i18n="headerTitle">Notre carte</h1>
+    <p data-i18n="headerSub">Plats vietnamiens frais, préparés avec soin</p>
+  </header>
+
+  <!-- ============================================
+       STICKY NAVIGATIE — voeg hier een link toe per categorie
+       ============================================ -->
+  <nav class="cat-nav">
+    <div class="cat-nav-inner" id="catNav">
+      <a href="#voorgerechten" class="active" data-i18n="cat-starters">Entrées</a>
+      <a href="#soepen" data-i18n="cat-soups">Soupes</a>
+      <a href="#hoofdgerechten" data-i18n="cat-mains">Plats principaux</a>
+      <a href="#noedels-rijst" data-i18n="cat-noodles">Nouilles &amp; Riz</a>
+      <a href="#extras" data-i18n="cat-extras">Suppléments</a>
+      <a href="#desserts" data-i18n="cat-desserts">Desserts</a>
+      <a href="#dranken" data-i18n="cat-drinks">Boissons</a>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       ================  HERBRUIKBAAR CATEGORIE-BLOK  ================
+       Kopieer alles tussen <section class="category" ...> en </section>
+       om een nieuwe categorie toe te voegen.
+
+       GEWONE RIJ (geen foto, geen nummer):
+         <div class="dish-row">
+           <div class="dish-name-line">
+             <h3 class="dish-title">Naam</h3>
+             <span class="leader"></span>
+             <span class="dish-price">€0,00</span>
+           </div>
+           <p class="dish-desc" data-i18n="desc-key">Description.</p>
+         </div>
+
+       UITGELICHTE RIJ MET STICKER/THUMBNAIL (klikbaar → lightbox
+       met volledige foto + naam + FR/EN omschrijving). Op desktop
+       staat dit compact op één regel (naam — stippellijn — prijs —
+       kleine foto), beschrijving eronder — .price-photo is daar
+       onzichtbaar voor de layout (display: contents). Op mobiel
+       (< 768px) wordt .price-photo een vast blokje dat rechts
+       "float"; de titel wrapt daar altijd netjes omheen, ook als
+       hij (zoals "Riz/Nouilles sautés aux Légumes") over twee
+       regels valt — de foto blijft dus altijd op dezelfde vaste
+       plek staan en kan nooit meer verspringen. Let op de volgorde:
+       .price-photo staat als EERSTE element vóór de titel in de
+       HTML, dat is nodig voor het float-gedrag op mobiel:
+         <div class="dish-row">
+           <div class="menu-item-content">
+             <div class="price-photo">
+               <span class="dish-price">€0,00</span>
+               <button class="sticker-trigger" data-img="assets/dishX.png" data-title="..." data-fr="..." data-en="...">
+                 <img class="sticker-img" src="assets/dishX-bg.png" alt="">
+               </button>
+             </div>
+             <h3 class="dish-title">Naam</h3>
+             <span class="leader"></span>
+             <span class="mobile-break" aria-hidden="true"></span>
+             <p class="dish-desc" data-i18n="desc-key">Description.</p>
+           </div>
+         </div>
+
+       Let op: data-i18n-namen zijn puur voor de FR/EN taalwissel van
+       de site — de dish-titel zelf (Vietnamese/Franse naam) wordt
+       nooit vertaald, dat blijft altijd hetzelfde.
+       ============================================================ -->
+
+  <section class="category" id="voorgerechten">
+    <div class="category-head">
+      <span class="kicker">Entrée / Starters</span>
+      <h2 data-i18n="cat-starters">Entrées</h2>
+    </div>
+
+    <div class="dish-list">
+
+      <!-- UITGELICHT 1/4: Rouleau de Printemps -->
+      <div class="dish-row">
+        <div class="menu-item-content">
+          <div class="price-photo">
+            <span class="dish-price">€6,00</span>
+            <button class="sticker-trigger"
+                    data-img="assets/dish1.png"
+                    data-title="Rouleau de Printemps"
+                    data-fr="Rouleaux de printemps frais aux crevettes."
+                    data-en="Fresh spring rolls with shrimp."
+                    aria-label="Voir la photo de Rouleau de Printemps">
+              <img class="sticker-img" src="assets/dish1-bg.png" alt="">
+            </button>
+          </div>
+          <h3 class="dish-title">Rouleau de Printemps</h3>
+          <span class="leader"></span>
+          <span class="mobile-break" aria-hidden="true"></span>
+          <p class="dish-desc" data-i18n="desc-rouleau">Rouleaux de printemps frais aux crevettes.</p>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Tempura aux Scampis</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€7,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-tempura">Tempura de crevettes croustillante, 4 pièces.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Nem / Nem Végétarien</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€7,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-nem">Nems frits au porc et légumes (4 pièces), ou végétariens (6 pièces).</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Hà Cảo</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€7,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-hacao">Raviolis vapeur aux crevettes, 4 pièces.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Siu Mai</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€7,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-siumai">Bouchées de crevette et porc, 4 pièces.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Panaché "Le Bol de Riz"</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€9,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-panache">Assortiment de bouchées vapeur, 5 pièces.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Đĩa Thập Cẩm</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€16,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-dia">Assortiment d'entrées croustillantes, servi avec une petite salade.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Mi Hoanh Thanh</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€8,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-mihoanh">Raviolis au porc haché.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============  EINDE HERBRUIKBAAR CATEGORIE-BLOK  ============ -->
+
+
+  <section class="category" id="soepen">
+    <div class="category-head">
+      <span class="kicker">Potages / Soup</span>
+      <h2 data-i18n="cat-soups">Soupes</h2>
+    </div>
+
+    <div class="dish-list">
+
+      <!-- UITGELICHT 2/4: Phở -->
+      <div class="dish-row">
+        <div class="menu-item-content">
+          <div class="price-photo">
+            <span class="dish-price">€16,00</span>
+            <button class="sticker-trigger"
+                    data-img="assets/dish2.png"
+                    data-title="Phở"
+                    data-fr="Bouillon de bœuf avec nouilles de riz, bœuf et coriandre."
+                    data-en="Beef broth with rice noodles, beef and coriander."
+                    aria-label="Voir la photo de Phở">
+              <img class="sticker-img" src="assets/dish2-bg.png" alt="">
+            </button>
+          </div>
+          <h3 class="dish-title">Phở</h3>
+          <span class="leader"></span>
+          <span class="mobile-break" aria-hidden="true"></span>
+          <p class="dish-desc" data-i18n="desc-pho">Bouillon de bœuf avec nouilles de riz, bœuf et coriandre.</p>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Miến Gà</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€6,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-mienga">Soupe claire de vermicelles de riz au poulet.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Canh Cay</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€8,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-canhcay">Soupe crémeuse au poivre oriental.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Soupe de Bœuf</h3>
+          <span class="spicy-tag" data-i18n="spicy-pittig">Épicé</span>
+          <span class="leader"></span>
+          <span class="dish-price">€16,50</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-soupebeouf">Soupe de nouilles épicée au bœuf, tomate et coriandre.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="category" id="hoofdgerechten">
+    <div class="category-head">
+      <span class="kicker">Spécialité / Plats</span>
+      <h2 data-i18n="cat-mains">Plats principaux</h2>
+    </div>
+
+    <div class="dish-list">
+
+      <!-- UITGELICHT 3/4: Canard Laqué -->
+      <div class="dish-row">
+        <div class="menu-item-content">
+          <div class="price-photo">
+            <span class="dish-price">€18,00</span>
+            <button class="sticker-trigger"
+                    data-img="assets/dish3.png"
+                    data-title="Canard Laqué"
+                    data-fr="Canard laqué croustillant, servi avec salade."
+                    data-en="Crispy lacquered duck, served with salad."
+                    aria-label="Voir la photo de Canard Laqué">
+              <img class="sticker-img" src="assets/dish3-bg.png" alt="">
+            </button>
+          </div>
+          <h3 class="dish-title">Canard Laqué</h3>
+          <span class="leader"></span>
+          <span class="mobile-break" aria-hidden="true"></span>
+          <p class="dish-desc" data-i18n="desc-canardlaque">Canard laqué croustillant, servi avec salade.</p>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Canard aux Légumes</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€19,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-canardlegumes">Canard aux légumes.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Canard 8 Délices</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€20,50</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-canard8">Canard, crevettes, poulet, bœuf et légumes.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Poulet aux Noix de Cajou</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€16,50</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-pouletcajou">Poulet aux noix de cajou et légumes.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Poulet aux Champignons</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€16,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-pouletchampignons">Poulet aux champignons parfumés et légumes.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Poulet aux Citronnelles</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€16,50</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-pouletcitronnelle">Poulet à la citronnelle.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Porc aux Citronnelles</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€17,50</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-porccitronnelle">Porc à la citronnelle.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Bœuf sauté aux Légumes</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€18,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-boeuflegumes">Bœuf sauté aux légumes et pousses de soja.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Bò Bằng</h3>
+          <span class="spicy-tag" data-i18n="spicy-pittig">Épicé</span>
+          <span class="leader"></span>
+          <span class="dish-price">€19,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-bobang">Bœuf aux légumes épicés et champignons, servi sur plaque chaude.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Tôm Bang</h3>
+          <span class="spicy-tag" data-i18n="spicy-optioneel">Épicé en option</span>
+          <span class="leader"></span>
+          <span class="dish-price">€21,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-tombang">Crevettes sautées aux légumes, servies sur plaque chaude.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="category" id="noedels-rijst">
+    <div class="category-head">
+      <span class="kicker">Bún / Riz &amp; Nouilles</span>
+      <h2 data-i18n="cat-noodles">Nouilles &amp; Riz</h2>
+    </div>
+
+    <div class="dish-list">
+
+      <!-- UITGELICHT 4/4: Riz/Nouilles sautés aux Légumes -->
+      <div class="dish-row">
+        <div class="menu-item-content">
+          <div class="price-photo">
+            <span class="dish-price">€13,50</span>
+            <button class="sticker-trigger"
+                    data-img="assets/dish4.png"
+                    data-title="Riz/Nouilles sautés aux Légumes"
+                    data-fr="Riz ou nouilles sautés aux légumes."
+                    data-en="Stir-fried rice or noodles with vegetables."
+                    aria-label="Voir la photo de Riz/Nouilles sautés aux Légumes">
+              <img class="sticker-img" src="assets/dish4-bg.png" alt="">
+            </button>
+          </div>
+          <h3 class="dish-title">Riz/Nouilles sautés aux Légumes</h3>
+          <span class="leader"></span>
+          <span class="mobile-break" aria-hidden="true"></span>
+          <p class="dish-desc" data-i18n="desc-rizlegumes">Riz ou nouilles sautés aux légumes.</p>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Bún Chả Giò</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€16,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-buncha">Vermicelles froides avec nems.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Bún Thịt Nướng</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€17,50</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-bunthit">Vermicelles au porc grillé (+ nems possibles).</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Bún Bò Xào</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€17,50</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-bunbo">Vermicelles au bœuf (+ croquettes possibles).</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Riz/Nouilles sautés</h3>
+          <span class="leader"></span>
+          <span class="dish-price">v.a. €14,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-rizsautes">Riz ou nouilles sautés, au choix avec porc, bœuf ou crevettes.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="category" id="extras">
+    <div class="category-head">
+      <span class="kicker">Supplément / Extra</span>
+      <h2 data-i18n="cat-extras">Suppléments</h2>
+    </div>
+
+    <ul class="drink-list">
+      <li><span class="drink-name">Riz/Nouilles sautés</span><span class="drink-price">€8,00</span></li>
+      <li><span class="drink-name">Légumes sautés</span><span class="drink-price">€3,50</span></li>
+      <li><span class="drink-name" data-i18n="drink-portionriz">Portion de riz blanc</span><span class="drink-price">€1,50</span></li>
+      <li><span class="drink-name" data-i18n="drink-spicysauce">Sauce épicée</span><span class="drink-price">€1,50</span></li>
+      <li><span class="drink-name" data-i18n="drink-chillisauce">Sauce chili douce</span><span class="drink-price">€1,50</span></li>
+    </ul>
+  </section>
+
+
+  <section class="category" id="desserts">
+    <div class="category-head">
+      <span class="kicker">Dessert</span>
+      <h2 data-i18n="cat-desserts">Desserts</h2>
+    </div>
+
+    <div class="dish-list">
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Dessert Maison</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€9,50</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-dessertmaison">Beignet de coco au sésame, servi avec glace vanille.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Beignet Coco/Banaan</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€7,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-beignet">Flambé en option (+ 5,00€).</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title">Marmite de Tofu</h3>
+          <span class="leader"></span>
+          <span class="dish-price">€7,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-marmitetofu">Tofu aux légumes et champignons parfumés.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="category" id="dranken">
+    <div class="category-head">
+      <span class="kicker">Boissons</span>
+      <h2 data-i18n="cat-drinks">Boissons</h2>
+    </div>
+
+    <div class="drink-group">
+      <h3 data-i18n="dg-coffee">Café &amp; Thé</h3>
+      <ul class="drink-list">
+        <li><span class="drink-name">Café</span><span class="drink-price">€3,50</span></li>
+        <li><span class="drink-name">Thé</span><span class="drink-price">€4,00</span></li>
+        <li><span class="drink-name">Thé Mint</span><span class="drink-price">€4,50</span></li>
+      </ul>
+    </div>
+
+    <div class="drink-group">
+      <h3 data-i18n="dg-softdrinks">Boissons &amp; Bière</h3>
+      <ul class="drink-list">
+        <li><span class="drink-name">Water 50cl / 1L</span><span class="drink-price">€3,50 / €4,50</span></li>
+        <li><span class="drink-name">Coca / Sprite / Fanta / Ice Tea</span><span class="drink-price">€3,50</span></li>
+        <li><span class="drink-name" data-i18n="drink-jusfrais">Jus frais — orange / pomme / tropical</span><span class="drink-price">€4,50</span></li>
+        <li><span class="drink-name" data-i18n="drink-juscoco">Jus de coco frais</span><span class="drink-price">€4,50</span></li>
+        <li><span class="drink-name">Maes</span><span class="drink-price">€4,00</span></li>
+        <li><span class="drink-name">Hoegaarden</span><span class="drink-price">€4,50</span></li>
+        <li><span class="drink-name">Leffe</span><span class="drink-price">€4,50</span></li>
+        <li><span class="drink-name">Tsingtao <small data-i18n="drink-tsingtaosub">Bière chinoise</small></span><span class="drink-price">€4,50</span></li>
+        <li><span class="drink-name" data-i18n="drink-bieralcoolfree">Bière sans alcool</span><span class="drink-price">€3,50</span></li>
+      </ul>
+    </div>
+
+    <div class="drink-group">
+      <h3 data-i18n="dg-housewine">Vin maison (verre / carafe)</h3>
+      <ul class="drink-list">
+        <li><span class="drink-name">Glas <small data-i18n="small-rougeblancrose">rouge / blanc / rosé</small></span><span class="drink-price">€4,00</span></li>
+        <li><span class="drink-name">1/4 L</span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name">1/2 L</span><span class="drink-price">€12,00</span></li>
+        <li><span class="drink-name">1 L</span><span class="drink-price">€20,00</span></li>
+      </ul>
+    </div>
+
+    <div class="drink-group">
+      <h3 data-i18n="dg-bottlewine">Vin à la bouteille</h3>
+      <ul class="drink-list">
+        <li><span class="drink-name">Chardonnay <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">€19,00</span></li>
+        <li><span class="drink-name">Pinot Gris d'Alsace <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">€28,00</span></li>
+        <li><span class="drink-name">Chablis <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">€35,00</span></li>
+        <li><span class="drink-name">Mateus <small>rosé</small></span><span class="drink-price">€19,00</span></li>
+        <li><span class="drink-name">Côtes de Provence <small>rosé</small></span><span class="drink-price">€20,00</span></li>
+        <li><span class="drink-name">Pinot Noir d'Alsace <small>rosé</small></span><span class="drink-price">€28,00</span></li>
+        <li><span class="drink-name">Côtes du Rhône <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">€21,00</span></li>
+        <li><span class="drink-name">Beaujolais <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">€21,00</span></li>
+        <li><span class="drink-name">Saint Amour <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">€35,00</span></li>
+      </ul>
+    </div>
+
+    <div class="drink-group">
+      <h3 data-i18n="dg-aperitif">Apéritif &amp; Digestif</h3>
+      <ul class="drink-list">
+        <li><span class="drink-name" data-i18n="apero-maison">Apéro Maison</span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name">Martini <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name">Porto <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">€5,00</span></li>
+        <li><span class="drink-name">Kir</span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name">Campari Orange</span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name">Pisang Orange</span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name">Pastis</span><span class="drink-price">€8,00</span></li>
+        <li><span class="drink-name">Gin Tonic</span><span class="drink-price">€8,00</span></li>
+        <li><span class="drink-name">Whisky Cola</span><span class="drink-price">€8,00</span></li>
+        <li><span class="drink-name">Sake</span><span class="drink-price">€9,00</span></li>
+        <li><span class="drink-name">Cognac</span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name">Cointreau</span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name">Mandarine Napoléon</span><span class="drink-price">€7,00</span></li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ============================================
+       LUNCHFORMULE
+       ============================================ -->
+  <div class="formule-box">
+    <div class="formule-card">
+      <h3>Menu 1 + 2</h3>
+      <ol>
+        <li data-i18n="formule-step1">Soupe du jour (végétarien) ou Nems (2 pièces)</li>
+        <li data-i18n="formule-step2">Poulet au curry rouge, ou Bœuf aux oignons, ou Canard laqué</li>
+      </ol>
+      <div class="prices">
+        <span>Menu 1 — €17,50</span>
+        <span>Menu 2 — €19,50</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="disclaimer" data-i18n="disclaimer">Certains prix ont été ajustés manuellement par rapport à la carte originale — à vérifier en cas de doute.</p>
+
+  <footer class="menu-footer">
+    Le Bol de Riz · Chaussée de Wavre 335, 1040 Etterbeek · 02 640 37 09<br>
+    <span data-i18n="footer-allergies">Merci de nous informer de vos allergies</span>
+  </footer>
+
+  <!-- ============================================================
+       LIGHTBOX — popup voor de 4 uitgelichte gerechten
+       (De lightbox toont altijd zowel FR als EN, ongeacht de
+       gekozen sitetaal — dat blijft ongewijzigd.)
+       ============================================================ -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-close></div>
+    <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+      <button class="lightbox-close" data-close aria-label="Fermer">&times;</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <div class="lightbox-text">
+        <h3 id="lightboxTitle"></h3>
+        <p class="lightbox-lang"><span class="lang-tag">FR</span><span id="lightboxFr"></span></p>
+        <p class="lightbox-lang"><span class="lang-tag">EN</span><span id="lightboxEn"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // VERTALINGEN — FR (hoofdtaal) / EN
+    // ============================================================
+    const translations = {
+      fr: {
+        "back": "Retour à l'accueil",
+        "headerTitle": "Notre carte",
+        "headerSub": "Plats vietnamiens frais, préparés avec soin",
+        "cat-starters": "Entrées",
+        "cat-soups": "Soupes",
+        "cat-mains": "Plats principaux",
+        "cat-noodles": "Nouilles &amp; Riz",
+        "cat-extras": "Suppléments",
+        "cat-desserts": "Desserts",
+        "cat-drinks": "Boissons",
+        "desc-rouleau": "Rouleaux de printemps frais aux crevettes.",
+        "desc-tempura": "Tempura de crevettes croustillante, 4 pièces.",
+        "desc-nem": "Nems frits au porc et légumes (4 pièces), ou végétariens (6 pièces).",
+        "desc-hacao": "Raviolis vapeur aux crevettes, 4 pièces.",
+        "desc-siumai": "Bouchées de crevette et porc, 4 pièces.",
+        "desc-panache": "Assortiment de bouchées vapeur, 5 pièces.",
+        "desc-dia": "Assortiment d'entrées croustillantes, servi avec une petite salade.",
+        "desc-mihoanh": "Raviolis au porc haché.",
+        "desc-pho": "Bouillon de bœuf avec nouilles de riz, bœuf et coriandre.",
+        "desc-mienga": "Soupe claire de vermicelles de riz au poulet.",
+        "desc-canhcay": "Soupe crémeuse au poivre oriental.",
+        "desc-soupebeouf": "Soupe de nouilles épicée au bœuf, tomate et coriandre.",
+        "desc-canardlaque": "Canard laqué croustillant, servi avec salade.",
+        "desc-canardlegumes": "Canard aux légumes.",
+        "desc-canard8": "Canard, crevettes, poulet, bœuf et légumes.",
+        "desc-pouletcajou": "Poulet aux noix de cajou et légumes.",
+        "desc-pouletchampignons": "Poulet aux champignons parfumés et légumes.",
+        "desc-pouletcitronnelle": "Poulet à la citronnelle.",
+        "desc-porccitronnelle": "Porc à la citronnelle.",
+        "desc-boeuflegumes": "Bœuf sauté aux légumes et pousses de soja.",
+        "desc-bobang": "Bœuf aux légumes épicés et champignons, servi sur plaque chaude.",
+        "desc-tombang": "Crevettes sautées aux légumes, servies sur plaque chaude.",
+        "desc-rizlegumes": "Riz ou nouilles sautés aux légumes.",
+        "desc-buncha": "Vermicelles froides avec nems.",
+        "desc-bunthit": "Vermicelles au porc grillé (+ nems possibles).",
+        "desc-bunbo": "Vermicelles au bœuf (+ croquettes possibles).",
+        "desc-rizsautes": "Riz ou nouilles sautés, au choix avec porc, bœuf ou crevettes.",
+        "desc-dessertmaison": "Beignet de coco au sésame, servi avec glace vanille.",
+        "desc-beignet": "Flambé en option (+ 5,00€).",
+        "desc-marmitetofu": "Tofu aux légumes et champignons parfumés.",
+        "spicy-pittig": "Épicé",
+        "spicy-optioneel": "Épicé en option",
+        "drink-portionriz": "Portion de riz blanc",
+        "drink-spicysauce": "Sauce épicée",
+        "drink-chillisauce": "Sauce chili douce",
+        "dg-coffee": "Café &amp; Thé",
+        "dg-softdrinks": "Boissons &amp; Bière",
+        "dg-housewine": "Vin maison (verre / carafe)",
+        "dg-bottlewine": "Vin à la bouteille",
+        "dg-aperitif": "Apéritif &amp; Digestif",
+        "drink-jusfrais": "Jus frais — orange / pomme / tropical",
+        "drink-juscoco": "Jus de coco frais",
+        "drink-tsingtaosub": "Bière chinoise",
+        "drink-bieralcoolfree": "Bière sans alcool",
+        "small-rougeblancrose": "rouge / blanc / rosé",
+        "small-blanc": "blanc",
+        "small-rouge": "rouge",
+        "apero-maison": "Apéro Maison",
+        "colors-blancrouge": "blanc / rouge",
+        "formule-step1": "Soupe du jour (végétarien) ou Nems (2 pièces)",
+        "formule-step2": "Poulet au curry rouge, ou Bœuf aux oignons, ou Canard laqué",
+        "disclaimer": "Certains prix ont été ajustés manuellement par rapport à la carte originale — à vérifier en cas de doute.",
+        "footer-allergies": "Merci de nous informer de vos allergies"
+      },
+      en: {
+        "back": "Back to home",
+        "headerTitle": "Our Menu",
+        "headerSub": "Fresh Vietnamese dishes, prepared with care",
+        "cat-starters": "Starters",
+        "cat-soups": "Soups",
+        "cat-mains": "Main Dishes",
+        "cat-noodles": "Noodles &amp; Rice",
+        "cat-extras": "Extras",
+        "cat-desserts": "Desserts",
+        "cat-drinks": "Drinks",
+        "desc-rouleau": "Fresh spring rolls with shrimp.",
+        "desc-tempura": "Crispy shrimp tempura, 4 pieces.",
+        "desc-nem": "Fried spring rolls with pork and vegetables (4 pcs), or vegetarian (6 pcs).",
+        "desc-hacao": "Steamed shrimp dumplings, 4 pieces.",
+        "desc-siumai": "Shrimp and pork dumplings, 4 pieces.",
+        "desc-panache": "Assortment of steamed starters, 5 pieces.",
+        "desc-dia": "Assortment of crispy starters, served with a small salad.",
+        "desc-mihoanh": "Dumplings with minced pork.",
+        "desc-pho": "Beef broth with rice noodles, beef and coriander.",
+        "desc-mienga": "Clear glass noodle soup with chicken.",
+        "desc-canhcay": "Creamy soup with oriental pepper.",
+        "desc-soupebeouf": "Spicy noodle soup with beef, tomato and coriander.",
+        "desc-canardlaque": "Crispy lacquered duck, served with salad.",
+        "desc-canardlegumes": "Duck with vegetables.",
+        "desc-canard8": "Duck, shrimp, chicken, beef and vegetables.",
+        "desc-pouletcajou": "Chicken with cashew nuts and vegetables.",
+        "desc-pouletchampignons": "Chicken with fragrant mushrooms and vegetables.",
+        "desc-pouletcitronnelle": "Chicken with lemongrass.",
+        "desc-porccitronnelle": "Pork with lemongrass.",
+        "desc-boeuflegumes": "Stir-fried beef with vegetables and bean sprouts.",
+        "desc-bobang": "Beef with spicy vegetables and mushrooms, served on a hot plate.",
+        "desc-tombang": "Stir-fried shrimp with vegetables, served on a hot plate.",
+        "desc-rizlegumes": "Stir-fried rice or noodles with vegetables.",
+        "desc-buncha": "Cold vermicelli with spring rolls.",
+        "desc-bunthit": "Vermicelli with grilled pork (+ spring rolls optional).",
+        "desc-bunbo": "Vermicelli with beef (+ croquettes optional).",
+        "desc-rizsautes": "Stir-fried rice or noodles, choice of pork, beef or shrimp.",
+        "desc-dessertmaison": "Coconut sesame fritter, served with vanilla ice cream.",
+        "desc-beignet": "Optional flambé (+ €5.00).",
+        "desc-marmitetofu": "Tofu with vegetables and fragrant mushrooms.",
+        "spicy-pittig": "Spicy",
+        "spicy-optioneel": "Optional spicy",
+        "drink-portionriz": "Portion of white rice",
+        "drink-spicysauce": "Spicy sauce",
+        "drink-chillisauce": "Sweet chilli sauce",
+        "dg-coffee": "Coffee &amp; Tea",
+        "dg-softdrinks": "Soft Drinks &amp; Beer",
+        "dg-housewine": "House wine (glass / carafe)",
+        "dg-bottlewine": "Wine by the bottle",
+        "dg-aperitif": "Aperitif &amp; Digestif",
+        "drink-jusfrais": "Fresh juice — orange / apple / tropical",
+        "drink-juscoco": "Fresh coconut juice",
+        "drink-tsingtaosub": "Chinese beer",
+        "drink-bieralcoolfree": "Non-alcoholic beer",
+        "small-rougeblancrose": "red / white / rosé",
+        "small-blanc": "white",
+        "small-rouge": "red",
+        "apero-maison": "House Aperitif",
+        "colors-blancrouge": "white / red",
+        "formule-step1": "Soup of the day (vegetarian) or Spring rolls (2 pieces)",
+        "formule-step2": "Red curry chicken, or Beef with onions, or Lacquered duck",
+        "disclaimer": "Some prices have been manually adjusted from the original menu — please double-check if in doubt.",
+        "footer-allergies": "Please inform us of your allergies"
+      }
+    };
+
+    function applyLanguage(lang) {
+      const dict = translations[lang];
+      if (!dict) return;
+
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('.lang-switch button').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      localStorage.setItem('lbdz-menu-lang', lang);
+    }
+
+    document.querySelectorAll('.lang-switch button').forEach((btn) => {
+      btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+    });
+
+    const savedLang = localStorage.getItem('lbdz-menu-lang');
+    if (savedLang && translations[savedLang]) {
+      applyLanguage(savedLang);
+    }
+
+    // Actieve staat van de sticky navigatie bijwerken tijdens het scrollen
+    const sections = document.querySelectorAll('.category');
+    const navLinks = document.querySelectorAll('#catNav a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+
+    // ============================================================
+    // LIGHTBOX — openen/sluiten van de uitgelichte gerechten
+    // ============================================================
+    const lightbox       = document.getElementById('lightbox');
+    const lightboxImg     = document.getElementById('lightboxImg');
+    const lightboxTitle   = document.getElementById('lightboxTitle');
+    const lightboxFr      = document.getElementById('lightboxFr');
+    const lightboxEn      = document.getElementById('lightboxEn');
+    let lastFocused = null;
+
+    function openLightbox(item){
+      lightboxImg.src = item.dataset.img;
+      lightboxImg.alt = item.dataset.title;
+      lightboxTitle.textContent = item.dataset.title;
+      lightboxFr.textContent = item.dataset.fr;
+      lightboxEn.textContent = item.dataset.en;
+
+      lastFocused = document.activeElement;
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lightbox.querySelector('.lightbox-close').focus();
+    }
+
+    function closeLightbox(){
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    document.querySelectorAll('.sticker-trigger').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(item);
+      });
+    });
+
+    document.querySelectorAll('[data-close]').forEach(el => {
+      el.addEventListener('click', closeLightbox);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')){
+        closeLightbox();
+      }
+    });
+  </script>
+
+</body>
+</html>
