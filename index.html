@@ -25,6 +25,8 @@
     background:var(--cream);
     font-family:'Work Sans', sans-serif;
     color:var(--charcoal);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body{
@@ -197,6 +199,10 @@
     text-decoration: none;
   }
 
+  .sheet-handle{
+    display:none;
+  }
+
   /* ---------- CTA (rechthoekig, donkergroen) ---------- */
   .cta{
     align-self:flex-start;
@@ -288,11 +294,23 @@
       height:auto;
       justify-content:flex-start;
       gap: 0.9rem;
-      padding: 1.6rem 7vw 2.2rem;
+      padding: 0.7rem 7vw 2.2rem;
       max-width: 100%;
       background: var(--cream);
       border-radius: 22px 22px 0 0;
       box-shadow: 0 -12px 30px -10px rgba(43,42,38,0.18);
+      transition: transform 0.35s cubic-bezier(.22,.68,0,1.01);
+    }
+
+    .sheet-handle{
+      display:block;
+      width: 40px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(43,42,38,0.25);
+      margin: 0 auto 0.9rem;
+      touch-action: none;
+      cursor: grab;
     }
 
     h1{ font-size: clamp(2rem, 9vw, 2.6rem); }
@@ -334,7 +352,8 @@
     </nav>
 </header>
 
-  <div class="hero-content">
+  <div class="hero-content" id="heroContent">
+    <div class="sheet-handle" id="sheetHandle" aria-hidden="true"></div>
     <h1>Le B<img class="logo-o" src="assets/logo.png" alt="o">l<br><em>de Riz</em></h1>
 
     <p class="tagline" data-i18n="tagline">Des plats calmes et frais du Vietnam et de la Chine, préparés avec soin au cœur d'Etterbeek.</p>
@@ -438,6 +457,89 @@
     if (savedLang && translations[savedLang]) {
       applyLanguage(savedLang);
     }
+
+    // ============================================================
+    // SWIPEABLE KAART (enkel mobiel) — sleep het handvatje naar
+    // beneden om de video te onthullen, naar boven om terug te
+    // keren naar de volledige kaart. Tikken op het handvatje werkt
+    // ook (kort tikje = wisselen, geen echte sleep-beweging nodig).
+    // ============================================================
+    (function () {
+      const sheet = document.getElementById('heroContent');
+      const handle = document.getElementById('sheetHandle');
+      if (!sheet || !handle) return;
+
+      function isMobile() {
+        return window.matchMedia('(max-width: 760px)').matches;
+      }
+
+      let dragging = false;
+      let startY = 0;
+      let currentY = 0;
+      let collapsed = false;
+      let maxOffset = 0;
+      const peek = 110; // px die zichtbaar blijven wanneer ingeklapt
+
+      function computeMaxOffset() {
+        maxOffset = Math.max(sheet.offsetHeight - peek, 0);
+      }
+
+      function setTransform(y, animate) {
+        sheet.style.transition = animate
+          ? 'transform 0.35s cubic-bezier(.22,.68,0,1.01)'
+          : 'none';
+        sheet.style.transform = `translateY(${y}px)`;
+      }
+
+      function snap() {
+        computeMaxOffset();
+        setTransform(collapsed ? maxOffset : 0, true);
+      }
+
+      function onStart(e) {
+        if (!isMobile()) return;
+        dragging = true;
+        startY = e.touches ? e.touches[0].clientY : e.clientY;
+        currentY = startY;
+        computeMaxOffset();
+        sheet.style.transition = 'none';
+      }
+
+      function onMove(e) {
+        if (!dragging) return;
+        currentY = e.touches ? e.touches[0].clientY : e.clientY;
+        const delta = currentY - startY;
+        const base = collapsed ? maxOffset : 0;
+        const y = Math.min(Math.max(base + delta, 0), maxOffset);
+        sheet.style.transform = `translateY(${y}px)`;
+      }
+
+      function onEnd() {
+        if (!dragging) return;
+        dragging = false;
+        const delta = currentY - startY;
+        const threshold = 60;
+        if (Math.abs(delta) < 6) {
+          collapsed = !collapsed;
+        } else if (collapsed) {
+          collapsed = delta < -threshold ? false : true;
+        } else {
+          collapsed = delta > threshold ? true : false;
+        }
+        snap();
+      }
+
+      handle.addEventListener('touchstart', onStart, { passive: true });
+      handle.addEventListener('touchmove', onMove, { passive: true });
+      handle.addEventListener('touchend', onEnd);
+      handle.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+
+      window.addEventListener('resize', () => {
+        if (isMobile()) snap();
+      });
+    })();
   </script>
 
 </body>
