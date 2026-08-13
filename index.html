@@ -275,13 +275,12 @@
 
   /* ---------- RESPONSIVE (MOBIEL) ---------- */
   @media (max-width: 760px){
+
+    /* Geen witte waas meer over de video — die blijft volledig
+       helder zichtbaar. Enkel de kaart zelf (hieronder) heeft nog
+       een eigen, opake achtergrond. */
     .hero-scrim{
-      background: linear-gradient(
-        180deg,
-        rgba(253,251,250,0) 0%,
-        rgba(253,251,250,0.55) 42%,
-        var(--cream) 62%
-      );
+      background: transparent;
     }
 
     .site-header{ top: 1.4rem; left: 6vw; }
@@ -292,6 +291,8 @@
       right:0;
       bottom:0;
       height:auto;
+      max-height: 80vh;
+      overflow-y: auto;
       justify-content:flex-start;
       gap: 0.9rem;
       padding: 0.7rem 7vw 2.2rem;
@@ -299,7 +300,10 @@
       background: var(--cream);
       border-radius: 22px 22px 0 0;
       box-shadow: 0 -12px 30px -10px rgba(43,42,38,0.18);
-      transition: transform 0.35s cubic-bezier(.22,.68,0,1.01);
+      /* Transition enkel voor de eindpuntjes (bv. vensterrotatie),
+         niet tijdens het actief slepen — dat regelt de JS zelf. */
+      transition: transform 0.3s ease;
+      will-change: transform;
     }
 
     .sheet-handle{
@@ -307,7 +311,7 @@
       width: 40px;
       height: 4px;
       border-radius: 999px;
-      background: rgba(43,42,38,0.25);
+      background: rgba(43,42,38,0.28);
       margin: 0 auto 0.9rem;
       touch-action: none;
       cursor: grab;
@@ -459,10 +463,13 @@
     }
 
     // ============================================================
-    // SWIPEABLE KAART (enkel mobiel) — sleep het handvatje naar
-    // beneden om de video te onthullen, naar boven om terug te
-    // keren naar de volledige kaart. Tikken op het handvatje werkt
-    // ook (kort tikje = wisselen, geen echte sleep-beweging nodig).
+    // SWIPEABLE KAART (enkel mobiel) — VRIJ sleepbaar. De kaart
+    // volgt exact je vinger tijdens het slepen, en blijft precies
+    // staan waar je loslaat (geen "snap" naar enkel open/dicht).
+    // Grenzen: kan nooit volledig verdwijnen (er blijft altijd een
+    // stukje van de kaart met info zichtbaar onderaan) en kan nooit
+    // het hele scherm tot bovenaan innemen (er blijft altijd ruimte
+    // voor de video/kom bovenaan het scherm vrij).
     // ============================================================
     (function () {
       const sheet = document.getElementById('heroContent');
@@ -475,58 +482,46 @@
 
       let dragging = false;
       let startY = 0;
-      let currentY = 0;
-      let collapsed = false;
+      let startOffset = 0;
+      let offset = 0;       // huidige positie: 0 = volledig open, maxOffset = maximaal ingeklapt
       let maxOffset = 0;
-      const peek = 110; // px die zichtbaar blijven wanneer ingeklapt
+      const peek = 110;     // px die altijd zichtbaar blijven, zelfs volledig "dicht" geschoven
 
       function computeMaxOffset() {
+        // offsetHeight houdt al rekening met de max-height (80vh) uit de CSS,
+        // dus dit past zich automatisch aan, ongeacht schermgrootte.
         maxOffset = Math.max(sheet.offsetHeight - peek, 0);
       }
 
-      function setTransform(y, animate) {
-        sheet.style.transition = animate
-          ? 'transform 0.35s cubic-bezier(.22,.68,0,1.01)'
-          : 'none';
-        sheet.style.transform = `translateY(${y}px)`;
-      }
-
-      function snap() {
-        computeMaxOffset();
-        setTransform(collapsed ? maxOffset : 0, true);
+      function applyOffset(animate) {
+        sheet.style.transition = animate ? 'transform 0.3s ease' : 'none';
+        sheet.style.transform = `translateY(${offset}px)`;
       }
 
       function onStart(e) {
         if (!isMobile()) return;
         dragging = true;
-        startY = e.touches ? e.touches[0].clientY : e.clientY;
-        currentY = startY;
         computeMaxOffset();
+        startY = e.touches ? e.touches[0].clientY : e.clientY;
+        startOffset = offset;
         sheet.style.transition = 'none';
       }
 
       function onMove(e) {
         if (!dragging) return;
-        currentY = e.touches ? e.touches[0].clientY : e.clientY;
+        const currentY = e.touches ? e.touches[0].clientY : e.clientY;
         const delta = currentY - startY;
-        const base = collapsed ? maxOffset : 0;
-        const y = Math.min(Math.max(base + delta, 0), maxOffset);
-        sheet.style.transform = `translateY(${y}px)`;
+        // Volg de vinger 1-op-1, maar begrensd tussen volledig open (0)
+        // en maximaal ingeklapt (maxOffset) — verder dan die grenzen kan niet.
+        offset = Math.min(Math.max(startOffset + delta, 0), maxOffset);
+        applyOffset(false);
       }
 
       function onEnd() {
         if (!dragging) return;
         dragging = false;
-        const delta = currentY - startY;
-        const threshold = 60;
-        if (Math.abs(delta) < 6) {
-          collapsed = !collapsed;
-        } else if (collapsed) {
-          collapsed = delta < -threshold ? false : true;
-        } else {
-          collapsed = delta > threshold ? true : false;
-        }
-        snap();
+        // Geen snap-gedrag: de kaart blijft gewoon staan waar je loslaat.
+        applyOffset(true);
       }
 
       handle.addEventListener('touchstart', onStart, { passive: true });
@@ -537,7 +532,10 @@
       window.addEventListener('mouseup', onEnd);
 
       window.addEventListener('resize', () => {
-        if (isMobile()) snap();
+        if (!isMobile()) return;
+        computeMaxOffset();
+        offset = Math.min(offset, maxOffset);
+        applyOffset(false);
       });
     })();
   </script>
