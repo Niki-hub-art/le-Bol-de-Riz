@@ -50,7 +50,7 @@
   img, svg{ display:block; max-width:100%; }
 
   /* ============================================
-     TERUG-KNOP + TAALWISSEL
+     TAALWISSEL (rechtsboven)
      ============================================ */
   .back-bar{
     max-width: var(--max-width);
@@ -58,23 +58,9 @@
     padding: 16px 20px 4px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 12px;
   }
-
-  .back-link{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    transition: color .2s ease;
-  }
-  .back-link:hover{ color: var(--text); }
-  .back-link svg{ width: 14px; height: 14px; }
 
   .lang-switch{
     display: flex;
@@ -142,14 +128,44 @@
     border-bottom: 1px solid var(--line);
     padding: 9px 0;
   }
-  .cat-nav-inner{
+  .cat-nav-row{
     max-width: var(--max-width);
     margin: 0 auto;
     display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+  }
+  .nav-home{
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px -6px rgba(43,40,35,.35);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .nav-home:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px -8px rgba(43,40,35,.4);
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .nav-home svg{
+    width: 22px;
+    height: 22px;
+  }
+  .cat-nav-inner{
+    flex: 1 1 auto;
+    display: flex;
     gap: 8px;
     overflow-x: auto;
-    padding: 0 20px;
     scrollbar-width: none;
+    min-width: 0;
   }
   .cat-nav-inner::-webkit-scrollbar{ display:none; }
 
@@ -589,11 +605,6 @@
 <body>
 
   <div class="back-bar">
-    <a href="index.html" class="back-link">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      <span data-i18n="back">Retour à l'accueil</span>
-    </a>
-
     <nav class="lang-switch" aria-label="Choix de la langue">
       <button type="button" data-lang="fr" class="active">FR</button>
       <span class="sep">·</span>
@@ -608,17 +619,30 @@
   </header>
 
   <!-- ============================================
-       STICKY NAVIGATIE — voeg hier een link toe per categorie
+       STICKY NAVIGATIE — voeg hier een link toe per categorie.
+       Het huisicoontje (.nav-home) staat vast links in deze balk
+       en scrollt niet mee met de categorie-pillen ernaast — omdat
+       de hele balk sticky is, reist het icoon automatisch mee naar
+       boven zodra je scrollt, zonder ooit over andere inhoud heen
+       te kunnen schuiven.
        ============================================ -->
   <nav class="cat-nav">
-    <div class="cat-nav-inner" id="catNav">
-      <a href="#voorgerechten" class="active" data-i18n="cat-starters">Entrées</a>
-      <a href="#soepen" data-i18n="cat-soups">Soupes</a>
-      <a href="#hoofdgerechten" data-i18n="cat-mains">Plats principaux</a>
-      <a href="#noedels-rijst" data-i18n="cat-noodles">Nouilles &amp; Riz</a>
-      <a href="#extras" data-i18n="cat-extras">Suppléments</a>
-      <a href="#desserts" data-i18n="cat-desserts">Desserts</a>
-      <a href="#dranken" data-i18n="cat-drinks">Boissons</a>
+    <div class="cat-nav-row">
+      <a href="index.html" class="nav-home" aria-label="Retour à l'accueil">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11l9-8 9 8"/>
+          <path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/>
+        </svg>
+      </a>
+      <div class="cat-nav-inner" id="catNav">
+        <a href="#voorgerechten" class="active" data-i18n="cat-starters">Entrées</a>
+        <a href="#soepen" data-i18n="cat-soups">Soupes</a>
+        <a href="#hoofdgerechten" data-i18n="cat-mains">Plats principaux</a>
+        <a href="#noedels-rijst" data-i18n="cat-noodles">Nouilles &amp; Riz</a>
+        <a href="#extras" data-i18n="cat-extras">Suppléments</a>
+        <a href="#desserts" data-i18n="cat-desserts">Desserts</a>
+        <a href="#dranken" data-i18n="cat-drinks">Boissons</a>
+      </div>
     </div>
   </nav>
 
@@ -843,7 +867,7 @@
           <div class="price-photo">
             <span class="dish-price">€18,00</span>
             <button class="sticker-trigger"
-                    data-img="assets/dish3.png"
+                    data-img="assets/dish3.jpg"
                     data-title="Canard Laqué"
                     data-fr="Canard laqué croustillant, servi avec salade."
                     data-en="Crispy lacquered duck, served with salad."
