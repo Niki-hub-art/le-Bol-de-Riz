@@ -300,10 +300,11 @@
       background: var(--cream);
       border-radius: 22px 22px 0 0;
       box-shadow: 0 -12px 30px -10px rgba(43,42,38,0.18);
-      /* Transition enkel voor de eindpuntjes (bv. vensterrotatie),
-         niet tijdens het actief slepen — dat regelt de JS zelf. */
       transition: transform 0.3s ease;
       will-change: transform;
+      /* Nodig zodat slepen vanaf de volledige kaart soepel werkt,
+         zonder dat de browser het interpreteert als pagina-scroll. */
+      touch-action: none;
     }
 
     .sheet-handle{
@@ -381,7 +382,7 @@
           <circle cx="12" cy="12" r="9"/>
           <path d="M12 7v5l3.5 2"/>
         </svg>
-        <span data-i18n="hoursValue">Mar–Sam · 12:00–14:30 &amp; 18:00–22:00<br>Dim sur réservation</span>
+        <span data-i18n="hoursValue">Lun–Ven · 12:00–14:30 &amp; 18:00–22:00<br>Dimanche sur RDV</span>
       </div>
     </div>
 
@@ -423,12 +424,12 @@
     const translations = {
       fr: {
         tagline: "Des plats calmes et frais du Vietnam et de la Chine, préparés avec soin au cœur d'Etterbeek.",
-        hoursValue: "Mar–Sam · 12:00–14:30 &amp; 18:00–22:00<br>Dim sur réservation",
+        hoursValue: "Lun–Ven · 12:00–14:30 &amp; 18:00–22:00<br>Dimanche sur RDV",
         cta: "Voir le menu"
       },
       en: {
         tagline: "Calm, fresh dishes from Vietnam and China, prepared with care in the heart of Etterbeek.",
-        hoursValue: "Tue–Sat · 12:00–14:30 &amp; 18:00–22:00<br>Sun by appointment",
+        hoursValue: "Mon–Fri · 12:00–14:30 &amp; 18:00–22:00<br>Sunday by appointment",
         cta: "View Menu"
       }
     };
@@ -463,13 +464,15 @@
     }
 
     // ============================================================
-    // SWIPEABLE KAART (enkel mobiel) — VRIJ sleepbaar. De kaart
-    // volgt exact je vinger tijdens het slepen, en blijft precies
-    // staan waar je loslaat (geen "snap" naar enkel open/dicht).
-    // Grenzen: kan nooit volledig verdwijnen (er blijft altijd een
-    // stukje van de kaart met info zichtbaar onderaan) en kan nooit
-    // het hele scherm tot bovenaan innemen (er blijft altijd ruimte
-    // voor de video/kom bovenaan het scherm vrij).
+    // SWIPEABLE KAART (enkel mobiel) — VRIJ sleepbaar vanaf de
+    // VOLLEDIGE kaart (niet enkel het dunne handvatje bovenaan).
+    // Tikken/slepen op een link of knop (telefoonnummer, "Voir le
+    // menu") wordt genegeerd door de sleep-logica, zodat die gewoon
+    // normaal blijven werken. De kaart volgt exact je vinger, en
+    // blijft precies staan waar je loslaat (geen snap-gedrag).
+    // Grenzen: kan nooit volledig verdwijnen (blijft altijd een
+    // stukje zichtbaar onderaan) en kan nooit het hele scherm tot
+    // bovenaan innemen (blijft altijd ruimte voor de video vrij).
     // ============================================================
     (function () {
       const sheet = document.getElementById('heroContent');
@@ -488,8 +491,6 @@
       const peek = 110;     // px die altijd zichtbaar blijven, zelfs volledig "dicht" geschoven
 
       function computeMaxOffset() {
-        // offsetHeight houdt al rekening met de max-height (80vh) uit de CSS,
-        // dus dit past zich automatisch aan, ongeacht schermgrootte.
         maxOffset = Math.max(sheet.offsetHeight - peek, 0);
       }
 
@@ -500,6 +501,10 @@
 
       function onStart(e) {
         if (!isMobile()) return;
+        // Als het aftikpunt op een link/knop zit (telefoonnummer,
+        // "Voir le menu"), laat dat gewoon normaal werken — start
+        // dan geen sleepbeweging.
+        if (e.target.closest('a, button')) return;
         dragging = true;
         computeMaxOffset();
         startY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -511,8 +516,6 @@
         if (!dragging) return;
         const currentY = e.touches ? e.touches[0].clientY : e.clientY;
         const delta = currentY - startY;
-        // Volg de vinger 1-op-1, maar begrensd tussen volledig open (0)
-        // en maximaal ingeklapt (maxOffset) — verder dan die grenzen kan niet.
         offset = Math.min(Math.max(startOffset + delta, 0), maxOffset);
         applyOffset(false);
       }
@@ -520,14 +523,14 @@
       function onEnd() {
         if (!dragging) return;
         dragging = false;
-        // Geen snap-gedrag: de kaart blijft gewoon staan waar je loslaat.
         applyOffset(true);
       }
 
-      handle.addEventListener('touchstart', onStart, { passive: true });
-      handle.addEventListener('touchmove', onMove, { passive: true });
-      handle.addEventListener('touchend', onEnd);
-      handle.addEventListener('mousedown', onStart);
+      // Slepen kan vanaf de volledige kaart, niet enkel het handvatje.
+      sheet.addEventListener('touchstart', onStart, { passive: true });
+      sheet.addEventListener('touchmove', onMove, { passive: true });
+      sheet.addEventListener('touchend', onEnd);
+      sheet.addEventListener('mousedown', onStart);
       window.addEventListener('mousemove', onMove);
       window.addEventListener('mouseup', onEnd);
 

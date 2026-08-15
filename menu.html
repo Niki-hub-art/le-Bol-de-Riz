@@ -13,7 +13,7 @@
      TOKENS
      ============================================ */
   :root{
-    --bg:            #FDFBFA;   /* warm wit, lichter */
+    --bg:            #EAF7E4;   /* zacht lichtgroen */
     --surface:       #FFFFFF;
     --text:          #2B2823;   /* houtskool */
     --muted:         #8B8377;
@@ -123,7 +123,7 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(253, 251, 250, 0.92);
+    background: rgba(234, 247, 228, 0.92);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line);
     padding: 9px 0;
@@ -141,7 +141,7 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: var(--surface);
+    background: var(--bg);
     color: var(--accent);
     display: flex;
     align-items: center;
@@ -162,7 +162,7 @@
   .cat-nav-inner{
     flex: 1 1 auto;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     overflow-x: auto;
     scrollbar-width: none;
     min-width: 0;
@@ -171,12 +171,12 @@
 
   .cat-nav a{
     flex: 0 0 auto;
-    padding: 7px 14px;
+    padding: 7px 10px;
     border-radius: 999px;
     font-size: 12.5px;
     font-weight: 500;
     color: var(--text);
-    background: var(--surface);
+    background: var(--bg);
     border: 1px solid var(--line);
     white-space: nowrap;
     transition: background .2s ease, color .2s ease, border-color .2s ease;
@@ -241,6 +241,12 @@
     font-size: 15.5px;
     line-height: 1.3;
     white-space: nowrap;
+  }
+  .dish-num{
+    color: var(--muted);
+    font-weight: 400;
+    font-family: 'Work Sans', sans-serif;
+    margin-right: 2px;
   }
   .leader{
     flex: 1 1 auto;
@@ -629,7 +635,7 @@
   <nav class="cat-nav">
     <div class="cat-nav-row">
       <a href="index.html" class="nav-home" aria-label="Retour à l'accueil">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 11l9-8 9 8"/>
           <path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/>
         </svg>
@@ -706,7 +712,7 @@
       <div class="dish-row">
         <div class="menu-item-content">
           <div class="price-photo">
-            <span class="dish-price">€6,00</span>
+            <span class="dish-price">6,00</span>
             <button class="sticker-trigger"
                     data-img="assets/dish1.png"
                     data-title="Rouleau de Printemps"
@@ -716,7 +722,7 @@
               <img class="sticker-img" src="assets/dish1-bg.png" alt="">
             </button>
           </div>
-          <h3 class="dish-title">Rouleau de Printemps</h3>
+          <h3 class="dish-title"><span class="dish-num">25.</span>Rouleau de Printemps</h3>
           <span class="leader"></span>
           <span class="mobile-break" aria-hidden="true"></span>
           <p class="dish-desc" data-i18n="desc-rouleau">Rouleaux de printemps frais aux crevettes.</p>
@@ -725,63 +731,63 @@
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Tempura aux Scampis</h3>
+          <h3 class="dish-title"><span class="dish-num">31.</span>Tempura aux Scampis</h3>
           <span class="leader"></span>
-          <span class="dish-price">€7,00</span>
+          <span class="dish-price">7,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-tempura">Tempura de crevettes croustillante, 4 pièces.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Nem / Nem Végétarien</h3>
+          <h3 class="dish-title"><span class="dish-num">32.</span>Nem / Nem Végétarien</h3>
           <span class="leader"></span>
-          <span class="dish-price">€7,00</span>
+          <span class="dish-price">7,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-nem">Nems frits au porc et légumes (4 pièces), ou végétariens (6 pièces).</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Hà Cảo</h3>
+          <h3 class="dish-title"><span class="dish-num">41.</span>Hà Cảo</h3>
           <span class="leader"></span>
-          <span class="dish-price">€7,00</span>
+          <span class="dish-price">7,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-hacao">Raviolis vapeur aux crevettes, 4 pièces.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Siu Mai</h3>
+          <h3 class="dish-title"><span class="dish-num">42.</span>Siu Mai</h3>
           <span class="leader"></span>
-          <span class="dish-price">€7,00</span>
+          <span class="dish-price">7,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-siumai">Bouchées de crevette et porc, 4 pièces.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Panaché "Le Bol de Riz"</h3>
+          <h3 class="dish-title"><span class="dish-num">43.</span>Panaché "Le Bol de Riz"</h3>
           <span class="leader"></span>
-          <span class="dish-price">€9,00</span>
+          <span class="dish-price">9,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-panache">Assortiment de bouchées vapeur, 5 pièces.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Đĩa Thập Cẩm</h3>
+          <h3 class="dish-title"><span class="dish-num">36.</span>Đĩa Thập Cẩm</h3>
           <span class="leader"></span>
-          <span class="dish-price">€16,00</span>
+          <span class="dish-price">16,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-dia">Assortiment d'entrées croustillantes, servi avec une petite salade.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Mi Hoanh Thanh</h3>
+          <h3 class="dish-title"><span class="dish-num">17.</span>Mi Hoanh Thanh</h3>
           <span class="leader"></span>
-          <span class="dish-price">€8,00</span>
+          <span class="dish-price">8,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-mihoanh">Raviolis au porc haché.</p>
       </div>
@@ -804,7 +810,7 @@
       <div class="dish-row">
         <div class="menu-item-content">
           <div class="price-photo">
-            <span class="dish-price">€16,00</span>
+            <span class="dish-price">16,00</span>
             <button class="sticker-trigger"
                     data-img="assets/dish2.png"
                     data-title="Phở"
@@ -814,7 +820,7 @@
               <img class="sticker-img" src="assets/dish2-bg.png" alt="">
             </button>
           </div>
-          <h3 class="dish-title">Phở</h3>
+          <h3 class="dish-title"><span class="dish-num">15.</span>Phở</h3>
           <span class="leader"></span>
           <span class="mobile-break" aria-hidden="true"></span>
           <p class="dish-desc" data-i18n="desc-pho">Bouillon de bœuf avec nouilles de riz, bœuf et coriandre.</p>
@@ -823,28 +829,36 @@
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Miến Gà</h3>
+          <h3 class="dish-title"><span class="dish-num">10.</span>Miến Gà</h3>
           <span class="leader"></span>
-          <span class="dish-price">€6,00</span>
+          <span class="dish-price">6,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-mienga">Soupe claire de vermicelles de riz au poulet.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Canh Cay</h3>
+          <h3 class="dish-title"><span class="dish-num">12.</span>Canh Cay</h3>
           <span class="leader"></span>
-          <span class="dish-price">€8,00</span>
+          <span class="dish-price">8,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-canhcay">Soupe crémeuse au poivre oriental.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Soupe de Bœuf</h3>
+          <h3 class="dish-title"><span class="dish-num">33.</span>Wonton</h3>
+          <span class="leader"></span>
+          <span class="dish-price"></span>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title"><span class="dish-num">16.</span>Soupe de Bœuf</h3>
           <span class="spicy-tag" data-i18n="spicy-pittig">Épicé</span>
           <span class="leader"></span>
-          <span class="dish-price">€16,50</span>
+          <span class="dish-price">16,50</span>
         </div>
         <p class="dish-desc" data-i18n="desc-soupebeouf">Soupe de nouilles épicée au bœuf, tomate et coriandre.</p>
       </div>
@@ -865,7 +879,7 @@
       <div class="dish-row">
         <div class="menu-item-content">
           <div class="price-photo">
-            <span class="dish-price">€18,00</span>
+            <span class="dish-price">18,00</span>
             <button class="sticker-trigger"
                     data-img="assets/dish3.jpg"
                     data-title="Canard Laqué"
@@ -875,7 +889,7 @@
               <img class="sticker-img" src="assets/dish3-bg.png" alt="">
             </button>
           </div>
-          <h3 class="dish-title">Canard Laqué</h3>
+          <h3 class="dish-title"><span class="dish-num">51.</span>Canard Laqué</h3>
           <span class="leader"></span>
           <span class="mobile-break" aria-hidden="true"></span>
           <p class="dish-desc" data-i18n="desc-canardlaque">Canard laqué croustillant, servi avec salade.</p>
@@ -884,83 +898,83 @@
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Canard aux Légumes</h3>
+          <h3 class="dish-title"><span class="dish-num">55.</span>Canard aux Légumes</h3>
           <span class="leader"></span>
-          <span class="dish-price">€19,00</span>
+            <span class="dish-price">19,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-canardlegumes">Canard aux légumes.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Canard 8 Délices</h3>
+          <h3 class="dish-title"><span class="dish-num">56.</span>Canard 8 Délices</h3>
           <span class="leader"></span>
-          <span class="dish-price">€20,50</span>
+            <span class="dish-price">20,50</span>
         </div>
         <p class="dish-desc" data-i18n="desc-canard8">Canard, crevettes, poulet, bœuf et légumes.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Poulet aux Noix de Cajou</h3>
+          <h3 class="dish-title"><span class="dish-num">63.</span>Poulet aux Noix de Cajou</h3>
           <span class="leader"></span>
-          <span class="dish-price">€16,50</span>
+            <span class="dish-price">16,50</span>
         </div>
         <p class="dish-desc" data-i18n="desc-pouletcajou">Poulet aux noix de cajou et légumes.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Poulet aux Champignons</h3>
+          <h3 class="dish-title"><span class="dish-num">65.</span>Poulet aux Champignons</h3>
           <span class="leader"></span>
-          <span class="dish-price">€16,00</span>
+            <span class="dish-price">16,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-pouletchampignons">Poulet aux champignons parfumés et légumes.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Poulet aux Citronnelles</h3>
+          <h3 class="dish-title"><span class="dish-num">66.</span>Poulet aux Citronnelles</h3>
           <span class="leader"></span>
-          <span class="dish-price">€16,50</span>
+          <span class="dish-price">16,50</span>
         </div>
         <p class="dish-desc" data-i18n="desc-pouletcitronnelle">Poulet à la citronnelle.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Porc aux Citronnelles</h3>
+          <h3 class="dish-title"><span class="dish-num">76.</span>Porc aux Citronnelles</h3>
           <span class="leader"></span>
-          <span class="dish-price">€17,50</span>
+          <span class="dish-price">17,50</span>
         </div>
         <p class="dish-desc" data-i18n="desc-porccitronnelle">Porc à la citronnelle.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Bœuf sauté aux Légumes</h3>
+          <h3 class="dish-title"><span class="dish-num">82.</span>Bœuf sauté aux Légumes</h3>
           <span class="leader"></span>
-          <span class="dish-price">€18,00</span>
+          <span class="dish-price">18,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-boeuflegumes">Bœuf sauté aux légumes et pousses de soja.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Bò Bằng</h3>
+          <h3 class="dish-title"><span class="dish-num">84.</span>Bò Bằng</h3>
           <span class="spicy-tag" data-i18n="spicy-pittig">Épicé</span>
           <span class="leader"></span>
-          <span class="dish-price">€19,00</span>
+          <span class="dish-price">19,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-bobang">Bœuf aux légumes épicés et champignons, servi sur plaque chaude.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Tôm Bang</h3>
+          <h3 class="dish-title"><span class="dish-num">96.</span>Tôm Bang</h3>
           <span class="spicy-tag" data-i18n="spicy-optioneel">Épicé en option</span>
           <span class="leader"></span>
-          <span class="dish-price">€21,00</span>
+          <span class="dish-price">21,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-tombang">Crevettes sautées aux légumes, servies sur plaque chaude.</p>
       </div>
@@ -981,7 +995,7 @@
       <div class="dish-row">
         <div class="menu-item-content">
           <div class="price-photo">
-            <span class="dish-price">€13,50</span>
+            <span class="dish-price">13,50</span>
             <button class="sticker-trigger"
                     data-img="assets/dish4.png"
                     data-title="Riz/Nouilles sautés aux Légumes"
@@ -991,7 +1005,7 @@
               <img class="sticker-img" src="assets/dish4-bg.png" alt="">
             </button>
           </div>
-          <h3 class="dish-title">Riz/Nouilles sautés aux Légumes</h3>
+          <h3 class="dish-title"><span class="dish-num">107.</span>Riz/Nouilles sautés aux Légumes</h3>
           <span class="leader"></span>
           <span class="mobile-break" aria-hidden="true"></span>
           <p class="dish-desc" data-i18n="desc-rizlegumes">Riz ou nouilles sautés aux légumes.</p>
@@ -1000,36 +1014,36 @@
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Bún Chả Giò</h3>
+          <h3 class="dish-title"><span class="dish-num">101.</span>Bún Chả Giò</h3>
           <span class="leader"></span>
-          <span class="dish-price">€16,00</span>
+          <span class="dish-price">16,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-buncha">Vermicelles froides avec nems.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Bún Thịt Nướng</h3>
+          <h3 class="dish-title"><span class="dish-num">102.</span>Bún Thịt Nướng</h3>
           <span class="leader"></span>
-          <span class="dish-price">€17,50</span>
+          <span class="dish-price">17,50</span>
         </div>
         <p class="dish-desc" data-i18n="desc-bunthit">Vermicelles au porc grillé (+ nems possibles).</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Bún Bò Xào</h3>
+          <h3 class="dish-title"><span class="dish-num">103.</span>Bún Bò Xào</h3>
           <span class="leader"></span>
-          <span class="dish-price">€17,50</span>
+          <span class="dish-price">17,50</span>
         </div>
         <p class="dish-desc" data-i18n="desc-bunbo">Vermicelles au bœuf (+ croquettes possibles).</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Riz/Nouilles sautés</h3>
+          <h3 class="dish-title"><span class="dish-num">108.</span>Riz/Nouilles sautés</h3>
           <span class="leader"></span>
-          <span class="dish-price">v.a. €14,00</span>
+          <span class="dish-price">v.a. 14,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-rizsautes">Riz ou nouilles sautés, au choix avec porc, bœuf ou crevettes.</p>
       </div>
@@ -1045,11 +1059,11 @@
     </div>
 
     <ul class="drink-list">
-      <li><span class="drink-name">Riz/Nouilles sautés</span><span class="drink-price">€8,00</span></li>
-      <li><span class="drink-name">Légumes sautés</span><span class="drink-price">€3,50</span></li>
-      <li><span class="drink-name" data-i18n="drink-portionriz">Portion de riz blanc</span><span class="drink-price">€1,50</span></li>
-      <li><span class="drink-name" data-i18n="drink-spicysauce">Sauce épicée</span><span class="drink-price">€1,50</span></li>
-      <li><span class="drink-name" data-i18n="drink-chillisauce">Sauce chili douce</span><span class="drink-price">€1,50</span></li>
+      <li><span class="drink-name">Riz/Nouilles sautés</span><span class="drink-price">8,00</span></li>
+      <li><span class="drink-name">Légumes sautés</span><span class="drink-price">3,50</span></li>
+      <li><span class="drink-name" data-i18n="drink-portionriz">Portion de riz blanc</span><span class="drink-price">1,50</span></li>
+      <li><span class="drink-name" data-i18n="drink-spicysauce">Sauce épicée</span><span class="drink-price">1,50</span></li>
+      <li><span class="drink-name" data-i18n="drink-chillisauce">Sauce chili douce</span><span class="drink-price">1,50</span></li>
     </ul>
   </section>
 
@@ -1066,7 +1080,7 @@
         <div class="dish-name-line">
           <h3 class="dish-title">Dessert Maison</h3>
           <span class="leader"></span>
-          <span class="dish-price">€9,50</span>
+          <span class="dish-price">9,50</span>
         </div>
         <p class="dish-desc" data-i18n="desc-dessertmaison">Beignet de coco au sésame, servi avec glace vanille.</p>
       </div>
@@ -1075,16 +1089,16 @@
         <div class="dish-name-line">
           <h3 class="dish-title">Beignet Coco/Banaan</h3>
           <span class="leader"></span>
-          <span class="dish-price">€7,00</span>
+          <span class="dish-price">7,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-beignet">Flambé en option (+ 5,00€).</p>
+        <p class="dish-desc" data-i18n="desc-beignet">Flambé en option (+ 5,00).</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title">Marmite de Tofu</h3>
+          <h3 class="dish-title"><span class="dish-num">113.</span>Marmite de Tofu</h3>
           <span class="leader"></span>
-          <span class="dish-price">€7,00</span>
+          <span class="dish-price">7,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-marmitetofu">Tofu aux légumes et champignons parfumés.</p>
       </div>
@@ -1102,68 +1116,68 @@
     <div class="drink-group">
       <h3 data-i18n="dg-coffee">Café &amp; Thé</h3>
       <ul class="drink-list">
-        <li><span class="drink-name">Café</span><span class="drink-price">€3,50</span></li>
-        <li><span class="drink-name">Thé</span><span class="drink-price">€4,00</span></li>
-        <li><span class="drink-name">Thé Mint</span><span class="drink-price">€4,50</span></li>
+        <li><span class="drink-name">Café</span><span class="drink-price">3,50</span></li>
+        <li><span class="drink-name">Thé</span><span class="drink-price">4,00</span></li>
+        <li><span class="drink-name">Thé Mint</span><span class="drink-price">4,50</span></li>
       </ul>
     </div>
 
     <div class="drink-group">
       <h3 data-i18n="dg-softdrinks">Boissons &amp; Bière</h3>
       <ul class="drink-list">
-        <li><span class="drink-name">Water 50cl / 1L</span><span class="drink-price">€3,50 / €4,50</span></li>
-        <li><span class="drink-name">Coca / Sprite / Fanta / Ice Tea</span><span class="drink-price">€3,50</span></li>
-        <li><span class="drink-name" data-i18n="drink-jusfrais">Jus frais — orange / pomme / tropical</span><span class="drink-price">€4,50</span></li>
-        <li><span class="drink-name" data-i18n="drink-juscoco">Jus de coco frais</span><span class="drink-price">€4,50</span></li>
-        <li><span class="drink-name">Maes</span><span class="drink-price">€4,00</span></li>
-        <li><span class="drink-name">Hoegaarden</span><span class="drink-price">€4,50</span></li>
-        <li><span class="drink-name">Leffe</span><span class="drink-price">€4,50</span></li>
-        <li><span class="drink-name">Tsingtao <small data-i18n="drink-tsingtaosub">Bière chinoise</small></span><span class="drink-price">€4,50</span></li>
-        <li><span class="drink-name" data-i18n="drink-bieralcoolfree">Bière sans alcool</span><span class="drink-price">€3,50</span></li>
+        <li><span class="drink-name">Water 50cl / 1L</span><span class="drink-price">3,50 / 4,50</span></li>
+        <li><span class="drink-name">Coca / Sprite / Fanta / Ice Tea</span><span class="drink-price">3,50</span></li>
+        <li><span class="drink-name" data-i18n="drink-jusfrais">Jus frais — orange / pomme / tropical</span><span class="drink-price">4,50</span></li>
+        <li><span class="drink-name" data-i18n="drink-juscoco">Jus de coco frais</span><span class="drink-price">4,50</span></li>
+        <li><span class="drink-name">Maes</span><span class="drink-price">4,00</span></li>
+        <li><span class="drink-name">Hoegaarden</span><span class="drink-price">4,50</span></li>
+        <li><span class="drink-name">Leffe</span><span class="drink-price">4,50</span></li>
+        <li><span class="drink-name">Tsingtao <small data-i18n="drink-tsingtaosub">Bière chinoise</small></span><span class="drink-price">4,50</span></li>
+        <li><span class="drink-name" data-i18n="drink-bieralcoolfree">Bière sans alcool</span><span class="drink-price">3,50</span></li>
       </ul>
     </div>
 
     <div class="drink-group">
       <h3 data-i18n="dg-housewine">Vin maison (verre / carafe)</h3>
       <ul class="drink-list">
-        <li><span class="drink-name">Glas <small data-i18n="small-rougeblancrose">rouge / blanc / rosé</small></span><span class="drink-price">€4,00</span></li>
-        <li><span class="drink-name">1/4 L</span><span class="drink-price">€7,00</span></li>
-        <li><span class="drink-name">1/2 L</span><span class="drink-price">€12,00</span></li>
-        <li><span class="drink-name">1 L</span><span class="drink-price">€20,00</span></li>
+        <li><span class="drink-name">Glas <small data-i18n="small-rougeblancrose">rouge / blanc / rosé</small></span><span class="drink-price">4,00</span></li>
+        <li><span class="drink-name">1/4 L</span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">1/2 L</span><span class="drink-price">12,00</span></li>
+        <li><span class="drink-name">1 L</span><span class="drink-price">20,00</span></li>
       </ul>
     </div>
 
     <div class="drink-group">
       <h3 data-i18n="dg-bottlewine">Vin à la bouteille</h3>
       <ul class="drink-list">
-        <li><span class="drink-name">Chardonnay <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">€19,00</span></li>
-        <li><span class="drink-name">Pinot Gris d'Alsace <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">€28,00</span></li>
-        <li><span class="drink-name">Chablis <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">€35,00</span></li>
-        <li><span class="drink-name">Mateus <small>rosé</small></span><span class="drink-price">€19,00</span></li>
-        <li><span class="drink-name">Côtes de Provence <small>rosé</small></span><span class="drink-price">€20,00</span></li>
-        <li><span class="drink-name">Pinot Noir d'Alsace <small>rosé</small></span><span class="drink-price">€28,00</span></li>
-        <li><span class="drink-name">Côtes du Rhône <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">€21,00</span></li>
-        <li><span class="drink-name">Beaujolais <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">€21,00</span></li>
-        <li><span class="drink-name">Saint Amour <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">€35,00</span></li>
+        <li><span class="drink-name">Chardonnay <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">19,00</span></li>
+        <li><span class="drink-name">Pinot Gris d'Alsace <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">28,00</span></li>
+        <li><span class="drink-name">Chablis <small data-i18n="small-blanc">blanc</small></span><span class="drink-price">35,00</span></li>
+        <li><span class="drink-name">Mateus <small>rosé</small></span><span class="drink-price">19,00</span></li>
+        <li><span class="drink-name">Côtes de Provence <small>rosé</small></span><span class="drink-price">20,00</span></li>
+        <li><span class="drink-name">Pinot Noir d'Alsace <small>rosé</small></span><span class="drink-price">28,00</span></li>
+        <li><span class="drink-name">Côtes du Rhône <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">21,00</span></li>
+        <li><span class="drink-name">Beaujolais <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">21,00</span></li>
+        <li><span class="drink-name">Saint Amour <small data-i18n="small-rouge">rouge</small></span><span class="drink-price">35,00</span></li>
       </ul>
     </div>
 
     <div class="drink-group">
       <h3 data-i18n="dg-aperitif">Apéritif &amp; Digestif</h3>
       <ul class="drink-list">
-        <li><span class="drink-name" data-i18n="apero-maison">Apéro Maison</span><span class="drink-price">€7,00</span></li>
-        <li><span class="drink-name">Martini <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">€7,00</span></li>
-        <li><span class="drink-name">Porto <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">€5,00</span></li>
-        <li><span class="drink-name">Kir</span><span class="drink-price">€7,00</span></li>
-        <li><span class="drink-name">Campari Orange</span><span class="drink-price">€7,00</span></li>
-        <li><span class="drink-name">Pisang Orange</span><span class="drink-price">€7,00</span></li>
-        <li><span class="drink-name">Pastis</span><span class="drink-price">€8,00</span></li>
-        <li><span class="drink-name">Gin Tonic</span><span class="drink-price">€8,00</span></li>
-        <li><span class="drink-name">Whisky Cola</span><span class="drink-price">€8,00</span></li>
-        <li><span class="drink-name">Sake</span><span class="drink-price">€9,00</span></li>
-        <li><span class="drink-name">Cognac</span><span class="drink-price">€7,00</span></li>
-        <li><span class="drink-name">Cointreau</span><span class="drink-price">€7,00</span></li>
-        <li><span class="drink-name">Mandarine Napoléon</span><span class="drink-price">€7,00</span></li>
+        <li><span class="drink-name" data-i18n="apero-maison">Apéro Maison</span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Martini <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Porto <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">5,00</span></li>
+        <li><span class="drink-name">Kir</span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Campari Orange</span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Pisang Orange</span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Pastis</span><span class="drink-price">8,00</span></li>
+        <li><span class="drink-name">Gin Tonic</span><span class="drink-price">8,00</span></li>
+        <li><span class="drink-name">Whisky Cola</span><span class="drink-price">8,00</span></li>
+        <li><span class="drink-name">Sake</span><span class="drink-price">9,00</span></li>
+        <li><span class="drink-name">Cognac</span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Cointreau</span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Mandarine Napoléon</span><span class="drink-price">7,00</span></li>
       </ul>
     </div>
 
@@ -1180,8 +1194,8 @@
         <li data-i18n="formule-step2">Poulet au curry rouge, ou Bœuf aux oignons, ou Canard laqué</li>
       </ol>
       <div class="prices">
-        <span>Menu 1 — €17,50</span>
-        <span>Menu 2 — €19,50</span>
+        <span>Menu 1 — 17,50</span>
+        <span>Menu 2 — 19,50</span>
       </div>
     </div>
   </div>
@@ -1255,7 +1269,7 @@
         "desc-bunbo": "Vermicelles au bœuf (+ croquettes possibles).",
         "desc-rizsautes": "Riz ou nouilles sautés, au choix avec porc, bœuf ou crevettes.",
         "desc-dessertmaison": "Beignet de coco au sésame, servi avec glace vanille.",
-        "desc-beignet": "Flambé en option (+ 5,00€).",
+        "desc-beignet": "Flambé en option (+ 5,00).",
         "desc-marmitetofu": "Tofu aux légumes et champignons parfumés.",
         "spicy-pittig": "Épicé",
         "spicy-optioneel": "Épicé en option",
@@ -1320,7 +1334,7 @@
         "desc-bunbo": "Vermicelli with beef (+ croquettes optional).",
         "desc-rizsautes": "Stir-fried rice or noodles, choice of pork, beef or shrimp.",
         "desc-dessertmaison": "Coconut sesame fritter, served with vanilla ice cream.",
-        "desc-beignet": "Optional flambé (+ €5.00).",
+        "desc-beignet": "Optional flambé (+ 5.00).",
         "desc-marmitetofu": "Tofu with vegetables and fragrant mushrooms.",
         "spicy-pittig": "Spicy",
         "spicy-optioneel": "Optional spicy",
