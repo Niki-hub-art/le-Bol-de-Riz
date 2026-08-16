@@ -82,9 +82,9 @@
   .replay-btn{
     position:fixed;
     top: 50%;
-    right: 6vw;
-    left: auto;
-    transform: translateY(-50%);
+    left: 78%;
+    right: auto;
+    transform: translate(-50%, -50%);
     z-index:3;
     width:42px;
     height:42px;
@@ -92,18 +92,18 @@
     display:none;
     align-items:center;
     justify-content:center;
-    background: rgba(253,251,250,0.88);
+    background: rgba(253,251,250,0.18);
     color: var(--bamboo-deep);
-    box-shadow: 0 8px 20px -8px rgba(43,42,38,0.35);
+    box-shadow: 0 4px 12px -6px rgba(43,42,38,0.25);
     cursor:pointer;
     border:none;
     padding:0;
-    transition: box-shadow .25s ease;
+    transition: box-shadow .25s ease, background .25s ease;
   }
 
   .replay-btn:hover{
-    transform: translateY(calc(-50% - 3px));
-    box-shadow: 0 12px 24px -8px rgba(43,42,38,0.45);
+    background: rgba(253,251,250,0.55);
+    box-shadow: 0 8px 18px -6px rgba(43,42,38,0.35);
   }
 
   .replay-btn svg{
@@ -114,17 +114,18 @@
   }
 
   /* ---------- SITE HEADER: taalwissel op een compact, beige
-       rechthoekje, bovenrand exact gelijk met de bovenrand van het
-       scherm. ---------- */
+       zwevend rechthoekje, los van de schermrand, halfdoorschijnend
+       beige. ---------- */
   .site-header{
     position:fixed;
-    top: 0;
+    top: 1.6rem;
     right: 6vw;
     z-index:3;
-    background: var(--cream);
-    padding: 0.3rem 1rem 0.35rem;
-    border-radius: 0 0 8px 8px;
+    background: rgba(253,251,250,0.72);
+    padding: 0.45rem 1.1rem 0.5rem;
+    border-radius: 10px;
     box-shadow: 0 6px 14px -8px rgba(43,42,38,0.3);
+    backdrop-filter: blur(3px);
   }
 
   .lang-switch{
@@ -186,7 +187,7 @@
      voor "de Riz". */
   h1{
     font-family:'Work Sans', sans-serif;
-    font-weight:500;
+    font-weight:400;
     font-size: clamp(2.6rem, 7vw, 4.6rem);
     line-height:0.3;
     letter-spacing:-0.01em;
@@ -195,7 +196,7 @@
 
   h1 em{
     font-style:normal;
-    font-weight:500;
+    font-weight:400;
     color: var(--charcoal);
   }
 
@@ -333,10 +334,11 @@
     .site-header{
       top: 1.2rem;
       right: 6vw;
-      background: transparent;
-      padding: 0;
-      border-radius: 0;
-      box-shadow: none;
+      background: rgba(253,251,250,0.72);
+      padding: 0.4rem 0.9rem 0.45rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 14px -8px rgba(43,42,38,0.3);
+      backdrop-filter: blur(3px);
     }
     .lang-switch{ color: var(--charcoal); }
     .lang-switch button.active{ color: var(--charcoal); border-bottom-color: var(--bamboo-deep); }
@@ -378,17 +380,16 @@
       cursor: grab;
     }
 
-    /* Titel op één horizontale regel i.p.v. twee gestapelde regels
-       — gewicht blijft bewust 700, ongewijzigd t.o.v. voorheen. */
+    /* Titel op één horizontale regel i.p.v. twee gestapelde regels */
     h1{
       font-size: clamp(1.7rem, 7.5vw, 2.3rem);
       line-height:1;
-      font-weight:700;
+      font-weight:600;
     }
 
     .title-break{ display:none; }
 
-    h1 em{ margin-left: 0.2em; font-weight:700; }
+    h1 em{ margin-left: 0.2em; font-weight:600; }
 
     .tagline{ font-size: 1.05rem; margin-top: 0.6rem; }
 
