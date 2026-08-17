@@ -277,6 +277,32 @@
   }
 
   /* ============================================
+     VARIANTENLIJST — meerdere prijsopties onder één
+     gerecht (bv. "au poulet / au porc-bœuf / aux
+     scampis" met elk een eigen prijs), in dezelfde
+     stippellijn-stijl als de rest van de kaart.
+     ============================================ */
+  .dish-variant-list{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 4px;
+  }
+  .dish-variant{
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 13.5px;
+    color: var(--text);
+  }
+  .dish-variant .leader{
+    margin: 0 2px 3px;
+  }
+  .dish-variant .dish-price{
+    font-size: 13.5px;
+  }
+
+  /* ============================================
      UITGELICHTE MINI-STICKER
      Klein, compact thumbnail (~44px) dat rechts van
      de gerechtsnaam staat, direct na de prijs — op
@@ -792,7 +818,7 @@
           <span class="leader"></span>
           <span class="dish-price">7,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-wonton">Wontons frits croustillants.</p>
+        <p class="dish-desc" data-i18n="desc-wonton">Wontons frits au porc, croustillants.</p>
       </div>
 
       <div class="dish-row">
@@ -945,8 +971,23 @@
       <div class="dish-row">
         <div class="dish-name-line">
           <h3 class="dish-title"><span class="dish-num">108.</span>Riz/Nouilles sautés</h3>
-          <span class="leader"></span>
-          <span class="dish-price">v.a. 14,00</span>
+        </div>
+        <div class="dish-variant-list">
+          <div class="dish-variant">
+            <span>au Poulet</span>
+            <span class="leader"></span>
+            <span class="dish-price">14,00</span>
+          </div>
+          <div class="dish-variant">
+            <span>au Porc/Bœuf</span>
+            <span class="leader"></span>
+            <span class="dish-price">15,00</span>
+          </div>
+          <div class="dish-variant">
+            <span>aux Scampis</span>
+            <span class="leader"></span>
+            <span class="dish-price">16,00</span>
+          </div>
         </div>
         <p class="dish-desc" data-i18n="desc-rizsautes">Riz ou nouilles sautés, au choix avec porc, bœuf ou crevettes.</p>
       </div>
@@ -1249,7 +1290,7 @@
         "desc-hacao": "Raviolis aux crevettes, 4 pièces.",
         "desc-siumai": "Bouchées de porc, 4 pièces.",
         "desc-panache": "Mélanges de entrées a la vapeur, 6 pièces.",
-        "desc-wonton": "Wontons frits croustillants.",
+        "desc-wonton": "Wontons frits au porc, croustillants.",
         "desc-dia": "Mélanges de entrées croustillantes, avec une petite salade.",
         "desc-mihoanh": "Soupe de wontons au porc.",
         "desc-pho": "Soupe avec nouilles de riz, boeuf et coriandre.",
@@ -1316,7 +1357,7 @@
         "desc-hacao": "Shrimp dumplings, 4 pieces.",
         "desc-siumai": "Pork dumplings, 4 pieces.",
         "desc-panache": "Assortment of steamed starters, 6 pieces.",
-        "desc-wonton": "Crispy fried wontons.",
+        "desc-wonton": "Crispy fried pork wontons.",
         "desc-dia": "Assortment of crispy starters, with a small salad.",
         "desc-mihoanh": "Wonton soup with pork.",
         "desc-pho": "Soup with rice noodles, beef and coriander.",
