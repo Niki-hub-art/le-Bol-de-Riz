@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Le Bol de Riz — Cuisine vietnamienne &amp; chinoise, Bruxelles</title>
+<meta name="google" content="notranslate">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream: #FDFBFA;
@@ -201,12 +202,30 @@
   }
 
   .tagline{
-    font-size: 1.15rem;
-    line-height:1.5;
-    color: var(--charcoal);
-    font-weight:500;
+    font-family: 'Alex Brush', cursive;
+    font-weight: 400;
+    font-size: 2.2rem;
+    line-height:1.2;
+    color: var(--bamboo-deep);
     max-width: 34ch;
-    margin-top: 0.9rem;
+    margin-top: 0.4rem;
+  }
+
+  .heart-dot{
+    display:inline-block;
+    width:0.32em;
+    height:0.32em;
+    margin-left:0.08em;
+    vertical-align:0.05em;
+    fill: currentColor;
+  }
+
+  .hours-note{
+    display:block;
+    margin-top:0.5rem;
+    font-size:0.85em;
+    color: var(--charcoal);
+    opacity:0.65;
   }
 
   /* ---------- INFO BLOCK — iconen i.p.v. tekstlabels ---------- */
@@ -394,7 +413,7 @@
 
     h1 em{ margin-left: 0.2em; font-weight:500; }
 
-    .tagline{ font-size: 1.05rem; margin-top: 0.6rem; }
+    .tagline{ font-size: 2.5rem; margin-top: 0.1rem; }
 
     /* Info-tekst groter voor betere leesbaarheid (er is nu meer
        ruimte doordat de titel maar 1 regel meer inneemt) */
@@ -447,7 +466,7 @@
     <div class="sheet-handle" id="sheetHandle" aria-hidden="true"></div>
     <h1>Le B<img class="logo-o" src="assets/logo.png" alt="o">l<br class="title-break"><em>de Riz</em></h1>
 
-    <p class="tagline" data-i18n="tagline">Made with care.</p>
+    <p class="tagline" data-i18n="tagline">Made with care<svg class="heart-dot" viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg></p>
 
     <div class="info-list">
       <div class="info-row">
@@ -468,7 +487,10 @@
           <circle cx="12" cy="12" r="9"/>
           <path d="M12 7v5l3.5 2"/>
         </svg>
-        <span data-i18n="hoursValue">Lun–Ven · 12:00–14:30 &amp; 18:00–22:00<br>Dimanche sur RDV</span>
+        <span>
+          <span data-i18n="hoursValue">Lun–Ven : 12:00–14:30<br>18:00–22:00<br>Samedi : 18:30–22:00<br>Dimanche : Sur RDV</span>
+          <span class="hours-note" data-i18n="hoursNote">Horaires variables les jours fériés — nous contacter pour confirmer.</span>
+        </span>
       </div>
     </div>
 
@@ -509,13 +531,15 @@
   <script>
     const translations = {
       fr: {
-        tagline: "Made with care.",
-        hoursValue: "Lun–Ven · 12:00–14:30 &amp; 18:00–22:00<br>Dimanche sur RDV",
+        tagline: "Made with care<svg class=\"heart-dot\" viewBox=\"0 0 24 24\"><path d=\"M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z\"/></svg>",
+        hoursValue: "Lun–Ven : 12:00–14:30<br>18:00–22:00<br>Samedi : 18:30–22:00<br>Dimanche : Sur RDV",
+        hoursNote: "Horaires variables les jours fériés — nous contacter pour confirmer.",
         cta: "Voir le menu"
       },
       en: {
-        tagline: "Made with care.",
-        hoursValue: "Mon–Fri · 12:00–14:30 &amp; 18:00–22:00<br>Sunday by appointment",
+        tagline: "Made with care<svg class=\"heart-dot\" viewBox=\"0 0 24 24\"><path d=\"M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z\"/></svg>",
+        hoursValue: "Mon–Fri: 12:00–14:30<br>18:00–22:00<br>Saturday: 18:30–22:00<br>Sunday: By appointment",
+        hoursNote: "Hours may vary on public holidays — please call to confirm.",
         cta: "View Menu"
       }
     };
@@ -568,6 +592,31 @@
         heroVideo.currentTime = 0;
         heroVideo.play();
       });
+    })();
+
+    // ============================================================
+    // AUTOPLAY-VANGNET — sommige browsers/telefoons blokkeren
+    // autoplay soms toch (bv. batterijbesparing, in-app browsers),
+    // ook al staan autoplay/muted/playsinline correct ingesteld.
+    // Als dat gebeurt, start de video gewoon stil mee zodra iemand
+    // ergens op het scherm tikt — geen zichtbare play-knop nodig.
+    // ============================================================
+    (function () {
+      const heroVideo = document.getElementById('heroVideo');
+      if (!heroVideo) return;
+
+      const playPromise = heroVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const resumePlay = () => {
+            heroVideo.play();
+            document.removeEventListener('touchstart', resumePlay);
+            document.removeEventListener('click', resumePlay);
+          };
+          document.addEventListener('touchstart', resumePlay, { once: true, passive: true });
+          document.addEventListener('click', resumePlay, { once: true });
+        });
+      }
     })();
 
     // ============================================================

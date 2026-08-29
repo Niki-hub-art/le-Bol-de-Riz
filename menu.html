@@ -99,21 +99,18 @@
     text-align: center;
   }
   .menu-header .eyebrow{
-    display: inline-block;
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent-ink);
-    font-weight: 600;
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+    color: var(--text);
   }
   .menu-header h1{
-    font-size: 30px;
-    margin-top: 8px;
-  }
-  .menu-header p{
-    margin-top: 6px;
-    color: var(--muted);
-    font-size: 13.5px;
+    display: inline-block;
+    font-size: 21px;
+    font-weight: 500;
+    margin-top: 10px;
   }
 
   /* ============================================
@@ -200,20 +197,19 @@
   .category-head{
     margin-bottom: 14px;
   }
-  .kicker{
-    display: block;
-    font-size: 10.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-ink);
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
   .category-head h2{
     display: inline-block;
     font-size: 21px;
     padding-bottom: 6px;
     border-bottom: 2px solid var(--accent);
+  }
+
+  .category-note{
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 4px;
   }
 
   /* ============================================
@@ -576,6 +572,35 @@
   }
 
   /* ============================================
+     ALLERGIE-WAARSCHUWING
+     ============================================ */
+  .allergy-notice{
+    max-width: var(--max-width);
+    margin: 24px auto 0;
+    padding: 12px 20px;
+  }
+  .allergy-notice p{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #FDECEA;
+    border: 1px solid #E8B4AC;
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: #9A3324;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+  .allergy-notice svg{
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    stroke: #C0392B;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* ============================================
      LUNCHFORMULE-KAART
      ============================================ */
   .formule-box{
@@ -593,11 +618,11 @@
     font-size: 18px;
     margin-bottom: 8px;
   }
-  .formule-card ol{
-    margin: 0 0 12px;
-    padding-left: 18px;
+  .formule-intro{
     font-size: 13.5px;
-    line-height: 1.65;
+    line-height: 1.5;
+    margin: 0 0 12px;
+    opacity: 0.92;
   }
   .formule-card .prices{
     display: flex;
@@ -606,6 +631,29 @@
     font-size: 14.5px;
     border-top: 1px solid rgba(241,255,239,0.25);
     padding-top: 10px;
+  }
+  .formule-list{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .formule-row{
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .formule-row .fleader{
+    flex: 1 1 auto;
+    min-width: 8px;
+    border-bottom: 1px dotted rgba(253,251,250,0.4);
+    margin: 0 2px 3px;
+  }
+  .formule-row .fprice{
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    white-space: nowrap;
   }
 
   /* ============================================
@@ -647,7 +695,6 @@
   <header class="menu-header">
     <div class="eyebrow">Le Bol de Riz</div>
     <h1 data-i18n="headerTitle">Notre carte</h1>
-    <p data-i18n="headerSub">Plats vietnamiens frais, préparés avec soin</p>
   </header>
 
   <!-- ============================================
@@ -679,56 +726,8 @@
   </nav>
 
 
-  <!-- ============================================================
-       ================  HERBRUIKBAAR CATEGORIE-BLOK  ================
-       Kopieer alles tussen <section class="category" ...> en </section>
-       om een nieuwe categorie toe te voegen.
-
-       GEWONE RIJ (geen foto, geen nummer):
-         <div class="dish-row">
-           <div class="dish-name-line">
-             <h3 class="dish-title">Naam</h3>
-             <span class="leader"></span>
-             <span class="dish-price">€0,00</span>
-           </div>
-           <p class="dish-desc" data-i18n="desc-key">Description.</p>
-         </div>
-
-       UITGELICHTE RIJ MET STICKER/THUMBNAIL (klikbaar → lightbox
-       met volledige foto + naam + FR/EN omschrijving). Op desktop
-       staat dit compact op één regel (naam — stippellijn — prijs —
-       kleine foto), beschrijving eronder — .price-photo is daar
-       onzichtbaar voor de layout (display: contents). Op mobiel
-       (< 768px) wordt .price-photo een vast blokje dat rechts
-       "float"; de titel wrapt daar altijd netjes omheen, ook als
-       hij (zoals "Riz/Nouilles sautés aux Légumes") over twee
-       regels valt — de foto blijft dus altijd op dezelfde vaste
-       plek staan en kan nooit meer verspringen. Let op de volgorde:
-       .price-photo staat als EERSTE element vóór de titel in de
-       HTML, dat is nodig voor het float-gedrag op mobiel:
-         <div class="dish-row">
-           <div class="menu-item-content">
-             <div class="price-photo">
-               <span class="dish-price">€0,00</span>
-               <button class="sticker-trigger" data-img="assets/dishX.png" data-title="..." data-fr="..." data-en="...">
-                 <img class="sticker-img" src="assets/dishX-bg.png" alt="">
-               </button>
-             </div>
-             <h3 class="dish-title">Naam</h3>
-             <span class="leader"></span>
-             <span class="mobile-break" aria-hidden="true"></span>
-             <p class="dish-desc" data-i18n="desc-key">Description.</p>
-           </div>
-         </div>
-
-       Let op: data-i18n-namen zijn puur voor de FR/EN taalwissel van
-       de site — de dish-titel zelf (Vietnamese/Franse naam) wordt
-       nooit vertaald, dat blijft altijd hetzelfde.
-       ============================================================ -->
-
   <section class="category" id="soepen">
     <div class="category-head">
-      <span class="kicker">Potages / Soup</span>
       <h2 data-i18n="cat-soups">Soupes</h2>
     </div>
 
@@ -745,20 +744,21 @@
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">12.</span>Canh Cay</h3>
+          <h3 class="dish-title"><span class="dish-num">12.</span>Potages Piquant</h3>
+          <span class="spicy-tag" data-i18n="spicy-pittig">Épicé</span>
           <span class="leader"></span>
-          <span class="dish-price">8,00</span>
+          <span class="dish-price">6,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-canhcay">Veloute au poivre oriental</p>
+        <p class="dish-desc" data-i18n="desc-canhcay">Oeufs, carottes, champignons, poivre, vinaigre.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">17.</span>Mi Hoanh Thanh</h3>
+          <h3 class="dish-title"><span class="dish-num">17.</span>Won Ton Soup</h3>
           <span class="leader"></span>
           <span class="dish-price">8,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-mihoanh">Soupe de wontons au porc.</p>
+        <p class="dish-desc" data-i18n="desc-mihoanh">Raviolis au porc.</p>
       </div>
 
     </div>
@@ -767,7 +767,6 @@
 
   <section class="category" id="voorgerechten">
     <div class="category-head">
-      <span class="kicker">Entrée / Starters</span>
       <h2 data-i18n="cat-starters">Entrées</h2>
     </div>
 
@@ -777,12 +776,12 @@
       <div class="dish-row">
         <div class="menu-item-content">
           <div class="price-photo">
-            <span class="dish-price">6,00</span>
+            <span class="dish-price">9,00</span>
             <button class="sticker-trigger"
                     data-img="assets/dish1.png"
                     data-title="Rouleau de Printemps"
-                    data-fr="Rouleaux de printemps frais aux crevettes."
-                    data-en="Fresh spring rolls with shrimp."
+                    data-fr="Rouleau avec scampis et une salade."
+                    data-en="Fresh rolls with shrimp and salad."
                     aria-label="Voir la photo de Rouleau de Printemps">
               <img class="sticker-img" src="assets/dish1-bg.png" alt="">
             </button>
@@ -790,17 +789,17 @@
           <h3 class="dish-title"><span class="dish-num">25.</span>Rouleau de Printemps</h3>
           <span class="leader"></span>
           <span class="mobile-break" aria-hidden="true"></span>
-          <p class="dish-desc" data-i18n="desc-rouleau">Rouleaux de printemps avec scampis</p>
+          <p class="dish-desc" data-i18n="desc-rouleau">Rouleau avec scampis et une salade.</p>
         </div>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">31.</span>Tempura aux Scampis</h3>
+          <h3 class="dish-title"><span class="dish-num">31.</span>Tempura (5 pièces)</h3>
           <span class="leader"></span>
-          <span class="dish-price">7,00</span>
+          <span class="dish-price">9,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-tempura">schrimps tempura, 4 pièces.</p>
+        <p class="dish-desc" data-i18n="desc-tempura">Shrimp tempura.</p>
       </div>
 
       <div class="dish-row">
@@ -809,64 +808,78 @@
           <span class="leader"></span>
           <span class="dish-price">7,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-nem">Nem de porc et légumes (4 pièces)/végétariens (6 pièces).</p>
+        <p class="dish-desc" data-i18n="desc-nem">Nem de porc et légumes/ végétarien.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">33.</span>Wonton frits, 5 pièces</h3>
+          <h3 class="dish-title"><span class="dish-num">33.</span>Won Ton frits (5 pièces)</h3>
+          <span class="leader"></span>
+          <span class="dish-price">8,00</span>
+        </div>
+        <p class="dish-desc" data-i18n="desc-wonton">Croustillantes au porc.</p>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title"><span class="dish-num">34.</span>Samosa au Bœuf (5 pièces)</h3>
+          <span class="leader"></span>
+          <span class="dish-price">8,00</span>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-name-line">
+          <h3 class="dish-title"><span class="dish-num">35.</span>Gyoza / Gyoza Végétarien (5 pièces)</h3>
           <span class="leader"></span>
           <span class="dish-price">7,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-wonton">Wontons frits au porc, croustillants.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">36.</span>Đĩa Thập Cẩm</h3>
+          <h3 class="dish-title"><span class="dish-num">36.</span>Đĩa Thập Cẩm (9 pièces)</h3>
           <span class="leader"></span>
           <span class="dish-price">16,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-dia">Mélanges de entrées croustillantes, avec une petite salade.</p>
+        <p class="dish-desc" data-i18n="desc-dia">Mélanges d'entrées croustillantes.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">41.</span>Hà Cảo</h3>
+          <h3 class="dish-title"><span class="dish-num">41.</span>Hà Cảo (4 pièces)</h3>
           <span class="leader"></span>
-          <span class="dish-price">7,00</span>
+          <span class="dish-price">8,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-hacao">Raviolis aux crevettes, 4 pièces.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">42.</span>Siu Mai</h3>
+          <h3 class="dish-title"><span class="dish-num">42.</span>Siu Mai (4 pièces)</h3>
           <span class="leader"></span>
           <span class="dish-price">7,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-siumai">Bouchées de porc, 4 pièces.</p>
+        <p class="dish-desc" data-i18n="desc-siumai">Bouchées de porc.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">43.</span>Panaché "Le Bol de Riz"</h3>
+          <h3 class="dish-title"><span class="dish-num">43.</span>Panaché "Le Bol de Riz" (6 pièces)</h3>
           <span class="leader"></span>
-          <span class="dish-price">9,00</span>
+          <span class="dish-price">10,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-panache">Mélanges de entrées a la vapeur, 6 pièces.</p>
+        <p class="dish-desc" data-i18n="desc-panache">Mélanges de entrées a la vapeur.</p>
       </div>
 
     </div>
   </section>
 
-  <!-- ============  EINDE HERBRUIKBAAR CATEGORIE-BLOK  ============ -->
-
 
   <section class="category" id="hoofdgerechten">
     <div class="category-head">
-      <span class="kicker">Plats / Main</span>
       <h2 data-i18n="cat-mains">Plats principaux</h2>
+      <span class="category-note" data-i18n="mains-note">Avec riz : +1,50</span>
     </div>
 
     <div class="dish-list">
@@ -879,8 +892,8 @@
             <button class="sticker-trigger"
                     data-img="assets/dish3.jpg"
                     data-title="Canard Laqué"
-                    data-fr="Canard laqué croustillant, servi avec salade."
-                    data-en="Crispy lacquered duck, served with salad."
+                    data-fr="Canard laqué avec salade."
+                    data-en="Crisp roast duck with salad."
                     aria-label="Voir la photo de Canard Laqué">
               <img class="sticker-img" src="assets/dish3-bg.png" alt="">
             </button>
@@ -905,7 +918,7 @@
         <div class="dish-name-line">
           <h3 class="dish-title"><span class="dish-num">56.</span>Canard 8 Délices</h3>
           <span class="leader"></span>
-            <span class="dish-price">20,50</span>
+            <span class="dish-price">21,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-canard8">Canard, scampis, poulet, boeuf et légumes.</p>
       </div>
@@ -914,18 +927,18 @@
         <div class="dish-name-line">
           <h3 class="dish-title"><span class="dish-num">63.</span>Poulet aux Noix de Cajou</h3>
           <span class="leader"></span>
-            <span class="dish-price">16,50</span>
+            <span class="dish-price">17,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-pouletcajou">Poulet, noix de cajou et légumes.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">65.</span>Poulet aux Champignons</h3>
+          <h3 class="dish-title"><span class="dish-num">65.</span>Poulet au Curry Rouge</h3>
           <span class="leader"></span>
-            <span class="dish-price">16,00</span>
+            <span class="dish-price">17,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-pouletchampignons">Poulet, champignons parfumés et légumes.</p>
+        <p class="dish-desc" data-i18n="desc-pouletpane">Poulet pané aux sauce aigre-douce.</p>
       </div>
 
       <div class="dish-row">
@@ -951,7 +964,7 @@
       <div class="dish-row">
         <div class="menu-item-content">
           <div class="price-photo">
-            <span class="dish-price">13,50</span>
+            <span class="dish-price">14,00</span>
             <button class="sticker-trigger"
                     data-img="assets/dish4.png"
                     data-title="Riz/Nouilles sautés aux Légumes"
@@ -996,9 +1009,9 @@
         <div class="dish-name-line">
           <h3 class="dish-title"><span class="dish-num">113.</span>Marmite de Tofu</h3>
           <span class="leader"></span>
-          <span class="dish-price">7,00</span>
+          <span class="dish-price">16,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-marmitetofu">Tofu aux légumes et champignons parfumés.</p>
+        <p class="dish-desc" data-i18n="desc-marmitetofu">Marmite de tofu, légumes et champignons parfumés.</p>
       </div>
 
     </div>
@@ -1007,7 +1020,6 @@
 
   <section class="category" id="specialites">
     <div class="category-head">
-      <span class="kicker">Spécialité</span>
       <h2 data-i18n="cat-specials">Spécialités</h2>
     </div>
 
@@ -1048,7 +1060,7 @@
         <div class="dish-name-line">
           <h3 class="dish-title"><span class="dish-num">66.</span>Poulet aux Citronnelles</h3>
           <span class="leader"></span>
-          <span class="dish-price">16,50</span>
+          <span class="dish-price">17,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-pouletcitronnelle">Poulet à la citronnelle.</p>
       </div>
@@ -1057,7 +1069,7 @@
         <div class="dish-name-line">
           <h3 class="dish-title"><span class="dish-num">76.</span>Porc aux Citronnelles</h3>
           <span class="leader"></span>
-          <span class="dish-price">17,50</span>
+          <span class="dish-price">18,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-porccitronnelle">Porc à la citronnelle.</p>
       </div>
@@ -1069,23 +1081,23 @@
           <span class="leader"></span>
           <span class="dish-price">19,00</span>
         </div>
-        <p class="dish-desc" data-i18n="desc-bobang">Bœuf avec légumes piquant, champignons parfumés sur plaque chaude.</p>
+        <p class="dish-desc" data-i18n="desc-bobang">Bœuf, légumes, champignons, sauce piquante sur plaque chaude.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
           <h3 class="dish-title"><span class="dish-num">101.</span>Bún Chả Giò</h3>
           <span class="leader"></span>
-          <span class="dish-price">16,00</span>
+          <span class="dish-price">17,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-buncha">Vermicelles aux nems.</p>
       </div>
 
       <div class="dish-row">
         <div class="dish-name-line">
-          <h3 class="dish-title"><span class="dish-num">102.</span>Bún Thịt Nướng</h3>
+          <h3 class="dish-title"><span class="dish-num">102.</span>Bún Thịt Nướng (+Chả Giò)</h3>
           <span class="leader"></span>
-          <span class="dish-price">17,50</span>
+          <span class="dish-price">18,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-bunthit">Vermicelles au porc grillé (+ nems).</p>
       </div>
@@ -1094,7 +1106,7 @@
         <div class="dish-name-line">
           <h3 class="dish-title"><span class="dish-num">103.</span>Bún Bò Xào</h3>
           <span class="leader"></span>
-          <span class="dish-price">17,50</span>
+          <span class="dish-price">18,00</span>
         </div>
         <p class="dish-desc" data-i18n="desc-bunbo">Vermicelles au bœuf (+ croquettes).</p>
       </div>
@@ -1105,14 +1117,13 @@
 
   <section class="category" id="extras">
     <div class="category-head">
-      <span class="kicker">Supplément / Extra</span>
       <h2 data-i18n="cat-extras">Suppléments</h2>
     </div>
 
     <ul class="drink-list">
-      <li><span class="drink-name">Riz/Nouilles sautés</span><span class="drink-price">8,00</span></li>
-      <li><span class="drink-name">Légumes sautés</span><span class="drink-price">8,00</span></li>
-      <li><span class="drink-name" data-i18n="drink-portionriz">Riz</span><span class="drink-price">3,50</span></li>
+      <li><span class="drink-name" data-i18n="drink-rizsautesextra">Riz/Nouilles sautés</span><span class="drink-price">8,00</span></li>
+      <li><span class="drink-name" data-i18n="drink-legumessautesextra">Légumes sautés</span><span class="drink-price">8,00</span></li>
+      <li><span class="drink-name" data-i18n="drink-portionriz">Riz</span><span class="drink-price">3,00</span></li>
       <li><span class="drink-name" data-i18n="drink-spicysauce">Sauce épicée</span><span class="drink-price">1,50</span></li>
       <li><span class="drink-name" data-i18n="drink-chillisauce">Sauce chili douce</span><span class="drink-price">1,50</span></li>
     </ul>
@@ -1121,7 +1132,6 @@
 
   <section class="category" id="desserts">
     <div class="category-head">
-      <span class="kicker">Dessert</span>
       <h2 data-i18n="cat-desserts">Desserts</h2>
     </div>
 
@@ -1151,7 +1161,6 @@
 
   <section class="category" id="dranken">
     <div class="category-head">
-      <span class="kicker">Boissons</span>
       <h2 data-i18n="cat-drinks">Boissons</h2>
     </div>
 
@@ -1167,14 +1176,14 @@
     <div class="drink-group">
       <h3 data-i18n="dg-softdrinks">Boissons &amp; Bière</h3>
       <ul class="drink-list">
-        <li><span class="drink-name">Water 50cl / 1L</span><span class="drink-price">3,50 / 4,50</span></li>
+        <li><span class="drink-name">Water 50cl / 1L</span><span class="drink-price">4,00 / 7,00</span></li>
         <li><span class="drink-name">Coca / Sprite / Fanta / Ice Tea</span><span class="drink-price">3,50</span></li>
-        <li><span class="drink-name" data-i18n="drink-jusfrais">Jus frais — orange / pomme / tropical</span><span class="drink-price">4,50</span></li>
+        <li><span class="drink-name" data-i18n="drink-jusfrais">Jus frais — orange / pomme / tropical</span><span class="drink-price">3,00</span></li>
         <li><span class="drink-name" data-i18n="drink-juscoco">Jus de coco frais</span><span class="drink-price">4,50</span></li>
-        <li><span class="drink-name">Maes</span><span class="drink-price">4,00</span></li>
-        <li><span class="drink-name">Hoegaarden</span><span class="drink-price">4,50</span></li>
+        <li><span class="drink-name">Maes</span><span class="drink-price">3,50</span></li>
+        <li><span class="drink-name">Hoegaarden</span><span class="drink-price">3,50</span></li>
         <li><span class="drink-name">Leffe</span><span class="drink-price">4,50</span></li>
-        <li><span class="drink-name">Tsingtao <small data-i18n="drink-tsingtaosub">Bière chinoise</small></span><span class="drink-price">4,50</span></li>
+        <li><span class="drink-name">Tsingtao <small data-i18n="drink-tsingtaosub">Bière chinoise</small></span><span class="drink-price">5,00</span></li>
         <li><span class="drink-name" data-i18n="drink-bieralcoolfree">Bière sans alcool</span><span class="drink-price">3,50</span></li>
       </ul>
     </div>
@@ -1208,15 +1217,15 @@
       <h3 data-i18n="dg-aperitif">Apéritif &amp; Digestif</h3>
       <ul class="drink-list">
         <li><span class="drink-name" data-i18n="apero-maison">Apéro Maison</span><span class="drink-price">7,00</span></li>
-        <li><span class="drink-name">Martini <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Martini <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">5,00</span></li>
         <li><span class="drink-name">Porto <small data-i18n="colors-blancrouge">blanc / rouge</small></span><span class="drink-price">5,00</span></li>
-        <li><span class="drink-name">Kir</span><span class="drink-price">7,00</span></li>
-        <li><span class="drink-name">Campari Orange</span><span class="drink-price">7,00</span></li>
-        <li><span class="drink-name">Pisang Orange</span><span class="drink-price">7,00</span></li>
+        <li><span class="drink-name">Kirr</span><span class="drink-price">5,00</span></li>
+        <li><span class="drink-name">Campari Orange</span><span class="drink-price">8,00</span></li>
+        <li><span class="drink-name">Pisang Orange</span><span class="drink-price">8,00</span></li>
         <li><span class="drink-name">Pastis</span><span class="drink-price">8,00</span></li>
-        <li><span class="drink-name">Gin Tonic</span><span class="drink-price">8,00</span></li>
-        <li><span class="drink-name">Whisky Cola</span><span class="drink-price">8,00</span></li>
-        <li><span class="drink-name">Sake</span><span class="drink-price">9,00</span></li>
+        <li><span class="drink-name">Gin Tonic</span><span class="drink-price">9,00</span></li>
+        <li><span class="drink-name">Whisky Cola</span><span class="drink-price">9,00</span></li>
+        <li><span class="drink-name">Sake</span><span class="drink-price">7,00</span></li>
         <li><span class="drink-name">Cognac</span><span class="drink-price">7,00</span></li>
         <li><span class="drink-name">Cointreau</span><span class="drink-price">7,00</span></li>
         <li><span class="drink-name">Mandarine Napoléon</span><span class="drink-price">7,00</span></li>
@@ -1226,18 +1235,46 @@
   </section>
 
   <!-- ============================================
-       LUNCHFORMULE
+       ALLERGIE-WAARSCHUWING — nu opvallender: rood-getint
+       kader met icoon, i.p.v. kleine grijze voetnoot.
+       ============================================ -->
+  <div class="allergy-notice">
+    <p>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 7.5v6"/>
+        <circle cx="12" cy="16.5" r="0.6" fill="#C0392B" stroke="none"/>
+      </svg>
+      <span data-i18n="allergy-warning">Merci de nous informer de vos allergies.</span>
+    </p>
+  </div>
+
+  <!-- ============================================
+       LUNCHFORMULE — herwerkt: item 1 (soep + nems) heeft
+       geen eigen prijs, want dat is nooit los te bestellen.
+       De prijs staat enkel naast de 3 keuzes bij item 2, en
+       is telkens de TOTALE prijs voor 1+2 samen.
        ============================================ -->
   <div class="formule-box">
     <div class="formule-card">
-      <h3>Menu 1 + 2</h3>
-      <ol>
-        <li data-i18n="formule-step1">Soupe du jour (végétarien) ou Nems (2 pièces)</li>
-        <li data-i18n="formule-step2">Poulet au curry rouge, ou Bœuf aux oignons, ou Canard laqué</li>
-      </ol>
-      <div class="prices">
-        <span>Menu 1 — 17,50</span>
-        <span>Menu 2 — 19,50</span>
+      <h3 data-i18n="formule-title">Menu Midi</h3>
+      <p class="formule-intro" data-i18n="formule-intro">Soupe du jour (végétarien) et Nems (2 pièces), suivis d'un choix parmi :</p>
+      <div class="formule-list">
+        <div class="formule-row">
+          <span data-i18n="formule-opt1">Poulet au curry rouge</span>
+          <span class="fleader"></span>
+          <span class="fprice">17,50</span>
+        </div>
+        <div class="formule-row">
+          <span data-i18n="formule-opt2">Bœuf aux oignons</span>
+          <span class="fleader"></span>
+          <span class="fprice">19,50</span>
+        </div>
+        <div class="formule-row">
+          <span data-i18n="formule-opt3">Canard laqué</span>
+          <span class="fleader"></span>
+          <span class="fprice">19,50</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1245,8 +1282,7 @@
   <p class="disclaimer" data-i18n="disclaimer">Certains prix ont été ajustés manuellement par rapport à la carte originale — à vérifier en cas de doute.</p>
 
   <footer class="menu-footer">
-    Le Bol de Riz · Chaussée de Wavre 335, 1040 Etterbeek · 02 640 37 09<br>
-    <span data-i18n="footer-allergies">Merci de nous informer de vos allergies</span>
+    Le Bol de Riz · Chaussée de Wavre 335, 1040 Etterbeek · 02 640 37 09
   </footer>
 
   <!-- ============================================================
@@ -1275,7 +1311,6 @@
       fr: {
         "back": "Retour à l'accueil",
         "headerTitle": "Notre carte",
-        "headerSub": "Plats vietnamiens frais, préparés avec soin",
         "cat-starters": "Entrées",
         "cat-soups": "Soupes",
         "cat-mains": "Plats principaux",
@@ -1284,28 +1319,29 @@
         "cat-extras": "Suppléments",
         "cat-desserts": "Desserts",
         "cat-drinks": "Boissons",
-        "desc-rouleau": "Rouleaux de printemps avec scampis",
-        "desc-tempura": "schrimps tempura, 4 pièces.",
-        "desc-nem": "Nem de porc et légumes (4 pièces)/végétariens (6 pièces).",
+        "mains-note": "Avec riz : +1,50",
+        "desc-rouleau": "Rouleau avec scampis et une salade.",
+        "desc-tempura": "Shrimp tempura.",
+        "desc-nem": "Nem de porc et légumes/ végétarien.",
         "desc-hacao": "Raviolis aux crevettes, 4 pièces.",
-        "desc-siumai": "Bouchées de porc, 4 pièces.",
-        "desc-panache": "Mélanges de entrées a la vapeur, 6 pièces.",
-        "desc-wonton": "Wontons frits au porc, croustillants.",
-        "desc-dia": "Mélanges de entrées croustillantes, avec une petite salade.",
-        "desc-mihoanh": "Soupe de wontons au porc.",
+        "desc-siumai": "Bouchées de porc.",
+        "desc-panache": "Mélanges de entrées a la vapeur.",
+        "desc-wonton": "Croustillantes au porc.",
+        "desc-dia": "Mélanges d'entrées croustillantes.",
+        "desc-mihoanh": "Raviolis au porc.",
         "desc-pho": "Soupe avec nouilles de riz, boeuf et coriandre.",
         "desc-mienga": "Soupe aux cheveux d'ange avec poulet.",
-        "desc-canhcay": "Veloute au poivre oriental",
+        "desc-canhcay": "Oeufs, carottes, champignons, poivre, vinaigre.",
         "desc-soupebeouf": "Soupe avec nouilles, boeuf, tomates et coriandre.",
         "desc-canardlaque": "Canard laqué avec salade.",
         "desc-canardlegumes": "Canard avec légumes.",
         "desc-canard8": "Canard, scampis, poulet, boeuf et légumes.",
         "desc-pouletcajou": "Poulet, noix de cajou et légumes.",
-        "desc-pouletchampignons": "Poulet, champignons parfumés et légumes.",
+        "desc-pouletpane": "Poulet pané aux sauce aigre-douce.",
         "desc-pouletcitronnelle": "Poulet à la citronnelle.",
         "desc-porccitronnelle": "Porc à la citronnelle.",
         "desc-boeuflegumes": "Bœuf, légumes et germes de soja.",
-        "desc-bobang": "Bœuf avec légumes piquant, champignons parfumés sur plaque chaude.",
+        "desc-bobang": "Bœuf, légumes, champignons, sauce piquante sur plaque chaude.",
         "desc-tombang": "Scampis sauté, légumes piquant sur plaque chaude.",
         "desc-rizlegumes": "Riz ou nouilles sautés aux légumes.",
         "desc-buncha": "Vermicelles aux nems.",
@@ -1314,9 +1350,11 @@
         "desc-rizsautes": "Riz ou nouilles sautés, au choix avec porc, bœuf ou crevettes.",
         "desc-dessertmaison": "Beignet de coco au sésame, servi avec glace vanille.",
         "desc-beignet": "Flambé en option (+ 5,00).",
-        "desc-marmitetofu": "Tofu aux légumes et champignons parfumés.",
+        "desc-marmitetofu": "Marmite de tofu, légumes et champignons parfumés.",
         "spicy-pittig": "Épicé",
         "spicy-optioneel": "Épicé en option",
+        "drink-rizsautesextra": "Riz/Nouilles sautés",
+        "drink-legumessautesextra": "Légumes sautés",
         "drink-portionriz": "Riz",
         "drink-spicysauce": "Sauce épicée",
         "drink-chillisauce": "Sauce chili douce",
@@ -1334,15 +1372,17 @@
         "small-rouge": "rouge",
         "apero-maison": "Apéro Maison",
         "colors-blancrouge": "blanc / rouge",
-        "formule-step1": "Soupe du jour (végétarien) ou Nems (2 pièces)",
-        "formule-step2": "Poulet au curry rouge, ou Bœuf aux oignons, ou Canard laqué",
-        "disclaimer": "Certains prix ont été ajustés manuellement par rapport à la carte originale — à vérifier en cas de doute.",
-        "footer-allergies": "Merci de nous informer de vos allergies"
+        "allergy-warning": "Merci de nous informer de vos allergies.",
+        "formule-title": "Menu Midi",
+        "formule-intro": "Soupe du jour (végétarien) et Nems (2 pièces), suivis d'un choix parmi :",
+        "formule-opt1": "Poulet au curry rouge",
+        "formule-opt2": "Bœuf aux oignons",
+        "formule-opt3": "Canard laqué",
+        "disclaimer": "Certains prix ont été ajustés manuellement par rapport à la carte originale — à vérifier en cas de doute."
       },
       en: {
         "back": "Back to home",
         "headerTitle": "Our Menu",
-        "headerSub": "Fresh Vietnamese dishes, prepared with care",
         "cat-starters": "Starters",
         "cat-soups": "Soups",
         "cat-mains": "Main Dishes",
@@ -1351,39 +1391,42 @@
         "cat-extras": "Extras",
         "cat-desserts": "Desserts",
         "cat-drinks": "Drinks",
-        "desc-rouleau": "Spring rolls with shrimp.",
-        "desc-tempura": "Shrimp tempura, 4 pieces.",
-        "desc-nem": "Pork and vegetable spring rolls (4 pieces) / vegetarian (6 pieces).",
-        "desc-hacao": "Shrimp dumplings, 4 pieces.",
-        "desc-siumai": "Pork dumplings, 4 pieces.",
-        "desc-panache": "Assortment of steamed starters, 6 pieces.",
-        "desc-wonton": "Crispy fried pork wontons.",
-        "desc-dia": "Assortment of crispy starters, with a small salad.",
-        "desc-mihoanh": "Wonton soup with pork.",
-        "desc-pho": "Soup with rice noodles, beef and coriander.",
-        "desc-mienga": "Angel hair soup with chicken.",
-        "desc-canhcay": "Creamy soup with oriental pepper.",
+        "mains-note": "With rice: +1.50",
+        "desc-rouleau": "Fresh rolls with shrimp and salad.",
+        "desc-tempura": "Shrimp tempura.",
+        "desc-nem": "Fried rolls with pork & vegetables/ vegetarian.",
+        "desc-hacao": "Steamed shrimp raviolis.",
+        "desc-siumai": "Pork patties.",
+        "desc-panache": "Mix of steamed starters.",
+        "desc-wonton": "Crispy fried pork wonton.",
+        "desc-dia": "Mix of crunchy starters.",
+        "desc-mihoanh": "Raviolis with pork.",
+        "desc-pho": "Soup with noodles, beef & coriander.",
+        "desc-mienga": "Glass noodle soup with chicken.",
+        "desc-canhcay": "Eggs, carrots, mushrooms, pepper, vinegar.",
         "desc-soupebeouf": "Soup with noodles, beef, tomatoes and coriander.",
-        "desc-canardlaque": "Lacquered duck with salad.",
+        "desc-canardlaque": "Crisp roast duck with salad.",
         "desc-canardlegumes": "Duck with vegetables.",
         "desc-canard8": "Duck, shrimp, chicken, beef and vegetables.",
         "desc-pouletcajou": "Chicken, cashew nuts and vegetables.",
-        "desc-pouletchampignons": "Chicken, fragrant mushrooms and vegetables.",
+        "desc-pouletpane": "Breaded chicken in sweet and sour sauce.",
         "desc-pouletcitronnelle": "Chicken with lemongrass.",
         "desc-porccitronnelle": "Pork with lemongrass.",
         "desc-boeuflegumes": "Beef, vegetables and bean sprouts.",
-        "desc-bobang": "Beef with spicy vegetables, fragrant mushrooms on a hot plate.",
+        "desc-bobang": "Beef, vegetables, mushrooms with spicy sauce on a hot plate.",
         "desc-tombang": "Stir-fried shrimp, spicy vegetables on a hot plate.",
         "desc-rizlegumes": "Stir-fried rice or noodles with vegetables.",
         "desc-buncha": "Vermicelli with spring rolls.",
-        "desc-bunthit": "Vermicelli with grilled pork (+ spring rolls).",
-        "desc-bunbo": "Vermicelli with beef (+ croquettes).",
+        "desc-bunthit": "Noodles with grilled pork (+ nems).",
+        "desc-bunbo": "Beef vermicelli (croquettes).",
         "desc-rizsautes": "Stir-fried rice or noodles, choice of pork, beef or shrimp.",
         "desc-dessertmaison": "Coconut sesame fritter, served with vanilla ice cream.",
         "desc-beignet": "Optional flambé (+ €5.00).",
         "desc-marmitetofu": "Tofu with vegetables and fragrant mushrooms.",
         "spicy-pittig": "Spicy",
         "spicy-optioneel": "Optional spicy",
+        "drink-rizsautesextra": "Fried rice/noodles",
+        "drink-legumessautesextra": "Fried vegetables",
         "drink-portionriz": "Rice",
         "drink-spicysauce": "Spicy sauce",
         "drink-chillisauce": "Sweet chilli sauce",
@@ -1401,10 +1444,13 @@
         "small-rouge": "red",
         "apero-maison": "House Aperitif",
         "colors-blancrouge": "white / red",
-        "formule-step1": "Soup of the day (vegetarian) or Spring rolls (2 pieces)",
-        "formule-step2": "Red curry chicken, or Beef with onions, or Lacquered duck",
-        "disclaimer": "Some prices have been manually adjusted from the original menu — please double-check if in doubt.",
-        "footer-allergies": "Please inform us of your allergies"
+        "allergy-warning": "Please inform us of your allergies.",
+        "formule-title": "Lunch Menu",
+        "formule-intro": "Soup of the day (vegetarian) and Spring rolls (2 pieces), followed by a choice of:",
+        "formule-opt1": "Red curry chicken",
+        "formule-opt2": "Beef with onions",
+        "formule-opt3": "Lacquered duck",
+        "disclaimer": "Some prices have been manually adjusted from the original menu — please double-check if in doubt."
       }
     };
 
