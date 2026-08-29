@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" translate="no">
+<html lang="fr" translate="no" class="notranslate">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -33,7 +33,7 @@
   body{
     position:relative;
     height:100vh;
-    height:100dvh;
+    height:100svh;
     width:100vw;
   }
 
@@ -375,7 +375,7 @@
       right:0;
       bottom:0;
       height:auto;
-      max-height: 80vh;
+      max-height: 80svh;
       overflow-y: auto;
       justify-content:flex-start;
       gap: 0.9rem;
@@ -679,6 +679,8 @@
       function onEnd() {
         if (!dragging) return;
         dragging = false;
+        computeMaxOffset();
+        offset = Math.min(Math.max(offset, 0), maxOffset);
         applyOffset(true);
       }
 
