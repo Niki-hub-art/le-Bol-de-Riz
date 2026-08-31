@@ -386,9 +386,12 @@
       box-shadow: 0 -12px 30px -10px rgba(43,42,38,0.18);
       transition: transform 0.3s ease;
       will-change: transform;
-      /* Nodig zodat slepen vanaf de volledige kaart soepel werkt,
-         zonder dat de browser het interpreteert als pagina-scroll. */
-      touch-action: none;
+      /* pan-y (i.p.v. none) zodat de browser nog gewoon verticaal kan
+         scrollen binnen de kaart als de inhoud niet past (bv. bij
+         grotere tekstgrootte-instellingen op het toestel) — anders
+         is de inhoud onder de zichtbare rand onbereikbaar. De sleep-
+         logica hieronder blijft gewoon werken naast de scroll. */
+      touch-action: pan-y;
     }
 
     .sheet-handle{
