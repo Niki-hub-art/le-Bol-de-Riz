@@ -247,6 +247,9 @@
     font-family: 'Work Sans', sans-serif;
     margin-right: 2px;
   }
+  /* Onzichtbaar nummer: tweede variant (bv. Original Fried Chicken)
+     begint zo exact onder de naam, niet onder het cijfer. */
+  .dish-num.ghost{ visibility: hidden; }
   .leader{
     flex: 1 1 auto;
     min-width: 10px;
@@ -813,7 +816,7 @@
           <span class="dish-price">7,00</span>
         </div>
         <div class="dish-name-line">
-          <h3 class="dish-title">Original Fried Chicken</h3>
+          <h3 class="dish-title"><span class="dish-num ghost" aria-hidden="true">30.</span>Original Fried Chicken</h3>
           <span class="leader"></span>
           <span class="dish-price">7,00</span>
         </div>
@@ -834,7 +837,7 @@
           <span class="dish-price">7,00</span>
         </div>
         <div class="dish-name-line">
-          <h3 class="dish-title">Nems végétarien (6 pcs)</h3>
+          <h3 class="dish-title"><span class="dish-num ghost" aria-hidden="true">32.</span>Nems végétarien (6 pcs)</h3>
           <span class="leader"></span>
           <span class="dish-price">7,00</span>
         </div>
@@ -863,7 +866,7 @@
           <span class="dish-price">7,00</span>
         </div>
         <div class="dish-name-line">
-          <h3 class="dish-title">Gyoza végétariens (5 pcs)</h3>
+          <h3 class="dish-title"><span class="dish-num ghost" aria-hidden="true">35.</span>Gyoza végétariens (5 pcs)</h3>
           <span class="leader"></span>
           <span class="dish-price">7,00</span>
         </div>
